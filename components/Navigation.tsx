@@ -2,16 +2,36 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useCartStore } from '@/store/cartStore';
+import { useAuthStore } from '@/store/authStore';
+import { useEffect, useState } from 'react';
 
 export default function Navigation() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  const getTotalItems = useCartStore((state) => state.getTotalItems);
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const links = [
     { href: '/', label: 'Accueil' },
     { href: '/products', label: 'Produits' },
     { href: '/contact', label: 'Contact' },
   ];
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
+
+  const cartItemCount = mounted ? getTotalItems() : 0;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-purple-500/20">
@@ -34,7 +54,7 @@ export default function Navigation() {
           </Link>
 
           {/* Navigation Links */}
-          <div className="flex gap-8">
+          <div className="flex items-center gap-6">
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -48,6 +68,58 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Admin Link */}
+            {mounted && user?.isAdmin && (
+              <Link
+                href="/admin"
+                className={`text-lg font-medium transition-all duration-300 hover:text-purple-400 ${
+                  pathname === '/admin'
+                    ? 'text-purple-500'
+                    : 'text-gray-300'
+                }`}
+              >
+                Admin
+              </Link>
+            )}
+
+            {/* Cart Icon */}
+            <Link href="/cart" className="relative group">
+              <div className="text-2xl text-gray-300 group-hover:text-purple-400 transition-colors">
+                🛒
+              </div>
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Login/Logout */}
+            {mounted && (
+              <>
+                {user ? (
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-gray-400">
+                      Bonjour, <span className="text-purple-400 font-semibold">{user.name}</span>
+                    </span>
+                    <button
+                      onClick={handleLogout}
+                      className="px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 rounded-lg text-sm font-medium transition-all duration-300"
+                    >
+                      Déconnexion
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm font-semibold transition-all duration-300 transform hover:scale-105"
+                  >
+                    Connexion
+                  </Link>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

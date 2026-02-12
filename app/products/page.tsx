@@ -1,132 +1,178 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useCartStore } from '@/store/cartStore';
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   category: string;
-  price: string;
+  price: number;
   description: string;
   image: string;
-  inStock: boolean;
+  stock: number;
 }
+
+// Produits initiaux avec stock
+const initialProducts: Product[] = [
+  {
+    id: 'prod-1',
+    name: 'Kit Ciel Étoilé Premium',
+    category: 'Ciel Étoilé',
+    price: 599,
+    description: 'Kit complet avec fibre optique premium, générateur LED et installation incluse',
+    image: '✨',
+    stock: 15,
+  },
+  {
+    id: 'prod-2',
+    name: 'Bande LED RGB 5m',
+    category: 'LED & Éclairage',
+    price: 89,
+    description: 'Bande LED flexible RGB avec télécommande et contrôle via application',
+    image: '💡',
+    stock: 50,
+  },
+  {
+    id: 'prod-3',
+    name: 'Éclairage Pédalier LED',
+    category: 'LED & Éclairage',
+    price: 45,
+    description: 'Kit d\'éclairage LED pour pédalier avec capteur de mouvement',
+    image: '🚗',
+    stock: 30,
+  },
+  {
+    id: 'prod-4',
+    name: 'Projecteur Logo Porte',
+    category: 'LED & Éclairage',
+    price: 35,
+    description: 'Projecteur LED personnalisable pour afficher votre logo sur le sol',
+    image: '🎯',
+    stock: 40,
+  },
+  {
+    id: 'prod-5',
+    name: 'Kit Ambiance RGB 360°',
+    category: 'LED & Éclairage',
+    price: 149,
+    description: 'Système d\'ambiance complet avec synchronisation musique',
+    image: '🌈',
+    stock: 25,
+  },
+  {
+    id: 'prod-6',
+    name: 'Fibre Optique Pro (100m)',
+    category: 'Ciel Étoilé',
+    price: 299,
+    description: 'Fibre optique haute qualité pour installation ciel étoilé personnalisé',
+    image: '⭐',
+    stock: 20,
+  },
+  {
+    id: 'prod-7',
+    name: 'Générateur LED Bluetooth',
+    category: 'Ciel Étoilé',
+    price: 179,
+    description: 'Générateur LED avec contrôle Bluetooth et variation de couleurs',
+    image: '📱',
+    stock: 18,
+  },
+  {
+    id: 'prod-8',
+    name: 'Tapis de Sol LED',
+    category: 'Accessoires',
+    price: 119,
+    description: 'Tapis de sol avec éclairage LED intégré et détection de présence',
+    image: '🔲',
+    stock: 12,
+  },
+  {
+    id: 'prod-9',
+    name: 'Nettoyant Intérieur Pro',
+    category: 'Entretien',
+    price: 25,
+    description: 'Nettoyant professionnel pour plastiques et cuirs avec protection UV',
+    image: '🧴',
+    stock: 100,
+  },
+  {
+    id: 'prod-10',
+    name: 'Kit Polissage Phares',
+    category: 'Entretien',
+    price: 39,
+    description: 'Kit complet pour restaurer la transparence de vos phares',
+    image: '💎',
+    stock: 45,
+  },
+  {
+    id: 'prod-11',
+    name: 'Bande LED Sous-Caisse',
+    category: 'LED & Éclairage',
+    price: 79,
+    description: 'Kit d\'éclairage sous-caisse étanche avec télécommande',
+    image: '⚡',
+    stock: 0,
+  },
+  {
+    id: 'prod-12',
+    name: 'Revêtement Nano-Céramique',
+    category: 'Entretien',
+    price: 199,
+    description: 'Protection nano-céramique longue durée avec effet hydrophobe',
+    image: '🛡️',
+    stock: 22,
+  },
+];
 
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('Tous');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [addedToCart, setAddedToCart] = useState<string | null>(null);
+
+  const addItem = useCartStore((state) => state.addItem);
 
   const categories = ['Tous', 'LED & Éclairage', 'Ciel Étoilé', 'Accessoires', 'Entretien'];
 
-  const products: Product[] = [
-    {
-      id: 1,
-      name: 'Kit Ciel Étoilé Premium',
-      category: 'Ciel Étoilé',
-      price: '599€',
-      description: 'Kit complet avec fibre optique premium, générateur LED et installation incluse',
-      image: '✨',
-      inStock: true,
-    },
-    {
-      id: 2,
-      name: 'Bande LED RGB 5m',
-      category: 'LED & Éclairage',
-      price: '89€',
-      description: 'Bande LED flexible RGB avec télécommande et contrôle via application',
-      image: '💡',
-      inStock: true,
-    },
-    {
-      id: 3,
-      name: 'Éclairage Pédalier LED',
-      category: 'LED & Éclairage',
-      price: '45€',
-      description: 'Kit d\'éclairage LED pour pédalier avec capteur de mouvement',
-      image: '🚗',
-      inStock: true,
-    },
-    {
-      id: 4,
-      name: 'Projecteur Logo Porte',
-      category: 'LED & Éclairage',
-      price: '35€',
-      description: 'Projecteur LED personnalisable pour afficher votre logo sur le sol',
-      image: '🎯',
-      inStock: true,
-    },
-    {
-      id: 5,
-      name: 'Kit Ambiance RGB 360°',
-      category: 'LED & Éclairage',
-      price: '149€',
-      description: 'Système d\'ambiance complet avec synchronisation musique',
-      image: '🌈',
-      inStock: true,
-    },
-    {
-      id: 6,
-      name: 'Fibre Optique Pro (100m)',
-      category: 'Ciel Étoilé',
-      price: '299€',
-      description: 'Fibre optique haute qualité pour installation ciel étoilé personnalisé',
-      image: '⭐',
-      inStock: true,
-    },
-    {
-      id: 7,
-      name: 'Générateur LED Bluetooth',
-      category: 'Ciel Étoilé',
-      price: '179€',
-      description: 'Générateur LED avec contrôle Bluetooth et variation de couleurs',
-      image: '📱',
-      inStock: true,
-    },
-    {
-      id: 8,
-      name: 'Tapis de Sol LED',
-      category: 'Accessoires',
-      price: '119€',
-      description: 'Tapis de sol avec éclairage LED intégré et détection de présence',
-      image: '🔲',
-      inStock: true,
-    },
-    {
-      id: 9,
-      name: 'Nettoyant Intérieur Pro',
-      category: 'Entretien',
-      price: '25€',
-      description: 'Nettoyant professionnel pour plastiques et cuirs avec protection UV',
-      image: '🧴',
-      inStock: true,
-    },
-    {
-      id: 10,
-      name: 'Kit Polissage Phares',
-      category: 'Entretien',
-      price: '39€',
-      description: 'Kit complet pour restaurer la transparence de vos phares',
-      image: '💎',
-      inStock: true,
-    },
-    {
-      id: 11,
-      name: 'Bande LED Sous-Caisse',
-      category: 'LED & Éclairage',
-      price: '79€',
-      description: 'Kit d\'éclairage sous-caisse étanche avec télécommande',
-      image: '⚡',
-      inStock: false,
-    },
-    {
-      id: 12,
-      name: 'Revêtement Nano-Céramique',
-      category: 'Entretien',
-      price: '199€',
-      description: 'Protection nano-céramique longue durée avec effet hydrophobe',
-      image: '🛡️',
-      inStock: true,
-    },
-  ];
+  // Initialiser les produits depuis localStorage ou utiliser les produits initiaux
+  useEffect(() => {
+    const storedProducts = localStorage.getItem('cpworks_products');
+    if (storedProducts) {
+      setProducts(JSON.parse(storedProducts));
+    } else {
+      localStorage.setItem('cpworks_products', JSON.stringify(initialProducts));
+      setProducts(initialProducts);
+    }
+  }, []);
+
+  // Rafraîchir les produits quand on revient sur la page
+  useEffect(() => {
+    const handleFocus = () => {
+      const storedProducts = localStorage.getItem('cpworks_products');
+      if (storedProducts) {
+        setProducts(JSON.parse(storedProducts));
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, []);
+
+  const handleAddToCart = (product: Product) => {
+    if (product.stock <= 0) return;
+
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image,
+      stock: product.stock,
+    });
+
+    setAddedToCart(product.id);
+    setTimeout(() => setAddedToCart(null), 2000);
+  };
 
   const filteredProducts =
     selectedCategory === 'Tous'
@@ -136,7 +182,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
-      <section className="bg-gradient-to-b from-purple-900/20 to-black py-20">
+      <section className="bg-gradient-to-b from-purple-900/20 to-black py-20 pt-32">
         <div className="container mx-auto px-6">
           <h1 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
             Nos Produits
@@ -182,12 +228,15 @@ export default function ProductsPage() {
                   <div className="text-7xl transform group-hover:scale-110 transition-transform duration-300">
                     {product.image}
                   </div>
-                  {!product.inStock && (
+                  {product.stock === 0 ? (
                     <div className="absolute top-4 right-4 bg-red-500 text-white text-xs px-3 py-1 rounded-full">
                       Rupture
                     </div>
-                  )}
-                  {product.inStock && (
+                  ) : product.stock < 10 ? (
+                    <div className="absolute top-4 right-4 bg-orange-500 text-white text-xs px-3 py-1 rounded-full">
+                      Stock: {product.stock}
+                    </div>
+                  ) : (
                     <div className="absolute top-4 right-4 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
                       En stock
                     </div>
@@ -207,17 +256,20 @@ export default function ProductsPage() {
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-bold text-purple-500">
-                      {product.price}
+                      {product.price}€
                     </span>
                     <button
+                      onClick={() => handleAddToCart(product)}
                       className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
-                        product.inStock
+                        addedToCart === product.id
+                          ? 'bg-green-600 text-white'
+                          : product.stock > 0
                           ? 'bg-purple-600 hover:bg-purple-700 text-white'
                           : 'bg-gray-700 text-gray-400 cursor-not-allowed'
                       }`}
-                      disabled={!product.inStock}
+                      disabled={product.stock === 0}
                     >
-                      {product.inStock ? 'Commander' : 'Indisponible'}
+                      {addedToCart === product.id ? '✓ Ajouté' : product.stock > 0 ? 'Ajouter' : 'Rupture'}
                     </button>
                   </div>
                 </div>
