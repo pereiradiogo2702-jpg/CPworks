@@ -41,7 +41,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20">
               <Image
                 src="/logo.png"
                 alt="CPWorks"
@@ -49,7 +49,7 @@ export default function Navigation() {
                 className="object-contain drop-shadow-[0_0_10px_rgba(168,85,247,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-all duration-300"
               />
             </div>
-            <span className="text-2xl sm:text-3xl font-bold">
+            <span className="text-2xl sm:text-4xl font-bold">
               <span className="text-white">CP</span>
               <span className="text-purple-500">Works</span>
             </span>
