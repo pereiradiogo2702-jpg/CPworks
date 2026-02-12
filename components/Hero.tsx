@@ -1,15 +1,29 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import AnimatedLogo from './AnimatedLogo';
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Background gradient effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-purple-900/20"></div>
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-30"
+      >
+        <source src="/background.mp4" type="video/mp4" />
+      </video>
 
-      {/* Animated grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8b5cf620_1px,transparent_1px),linear-gradient(to_bottom,#8b5cf620_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black"></div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
@@ -18,8 +32,11 @@ export default function Hero() {
           <AnimatedLogo />
         </div>
 
-        {/* Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+        {/* Heading with Glitch Effect */}
+        <h1
+          className="text-5xl md:text-7xl font-bold mb-6 text-white glitch"
+          data-text="CPWorks"
+        >
           CPWorks
         </h1>
 
@@ -48,21 +65,23 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-500/30 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 10}s`,
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating particles effect - only render on client */}
+      {mounted && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-purple-500/30 rounded-full animate-float"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${5 + Math.random() * 10}s`,
+              }}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

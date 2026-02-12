@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
@@ -16,10 +17,20 @@ export default function Navigation() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-purple-500/20">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo placeholder - will be replaced with animated logo */}
-          <Link href="/" className="text-2xl font-bold">
-            <span className="text-white">CP</span>
-            <span className="text-purple-500">Works</span>
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-12 h-12">
+              <Image
+                src="/logo.png"
+                alt="CPWorks"
+                fill
+                className="object-contain drop-shadow-[0_0_10px_rgba(168,85,247,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-all duration-300"
+              />
+            </div>
+            <span className="text-2xl font-bold">
+              <span className="text-white">CP</span>
+              <span className="text-purple-500">Works</span>
+            </span>
           </Link>
 
           {/* Navigation Links */}
