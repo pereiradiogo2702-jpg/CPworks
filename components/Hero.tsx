@@ -41,7 +41,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-300 mb-4">
-          Mécanique & Customisation Automobile
+          Customisation Automobile
         </p>
 
         <p className="text-lg text-purple-400 mb-12 max-w-2xl mx-auto">

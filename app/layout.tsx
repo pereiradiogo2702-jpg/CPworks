@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CPWorks - Mécanique & Customisation Auto",
-  description: "Garage mécanique spécialisé dans la customisation: ciels étoilés, LED, lumière d'ambiance et modifications sur mesure",
+  title: "CPWorks - Customisation Auto",
+  description: "Spécialiste en customisation automobile: ciels étoilés, LED, lumière d'ambiance et modifications sur mesure",
 };
 
 export default function RootLayout({

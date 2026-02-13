@@ -19,18 +19,18 @@ export default function ContactPage() {
   const mechanics: Mechanic[] = [
     {
       name: 'Jean-Paul Martinez',
-      role: 'Mécanicien Chef & Spécialiste LED',
+      role: 'Expert en Customisation & Spécialiste LED',
       experience: '15 ans d\'expérience',
       specialties: ['Customisation LED', 'Ciels étoilés', 'Électronique auto'],
-      bio: 'Passionné par l\'innovation automobile, Jean-Paul s\'est spécialisé dans les installations LED et ciels étoilés. Après 10 ans en tant que mécanicien traditionnel, il a perfectionné ses compétences en customisation haut de gamme. Expert en électronique automobile, il réalise des installations sur mesure qui transforment chaque véhicule en œuvre d\'art lumineuse.',
+      bio: 'Passionné par l\'innovation automobile, Jean-Paul s\'est spécialisé dans les installations LED et ciels étoilés. Après 10 ans dans l\'automobile, il a perfectionné ses compétences en customisation haut de gamme. Expert en électronique automobile, il réalise des installations sur mesure qui transforment chaque véhicule en œuvre d\'art lumineuse.',
       photo: '/mechanic1.jpg',
     },
     {
       name: 'Alexandre Dubois',
-      role: 'Mécanicien & Expert en Mécanique Générale',
+      role: 'Expert Automobile & Spécialiste Entretien',
       experience: '12 ans d\'expérience',
       specialties: ['Diagnostic électronique', 'Entretien', 'Réparations complexes'],
-      bio: 'Fort de 12 années d\'expérience dans le domaine automobile, Alexandre maîtrise tous les aspects de la mécanique moderne. Diplômé en mécanique automobile et électronique, il excelle dans le diagnostic et la résolution de problèmes complexes. Sa rigueur et son professionnalisme garantissent des interventions de qualité sur tous types de véhicules.',
+      bio: 'Fort de 12 années d\'expérience dans le domaine automobile, Alexandre maîtrise tous les aspects de l\'automobile moderne. Diplômé en automobile et électronique, il excelle dans le diagnostic et la résolution de problèmes complexes. Sa rigueur et son professionnalisme garantissent des interventions de qualité sur tous types de véhicules.',
       photo: '/mechanic2.jpg',
     },
   ];

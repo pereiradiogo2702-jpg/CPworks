@@ -20,8 +20,8 @@ export default function Services() {
     },
     {
       icon: '🚗',
-      title: 'Mécanique Générale',
-      description: 'Services complets de mécanique automobile pour l\'entretien et la réparation de votre véhicule.',
+      title: 'Entretien Automobile',
+      description: 'Services complets pour l\'entretien et le soin de votre véhicule.',
       features: ['Entretien régulier', 'Diagnostic électronique', 'Réparations toutes marques'],
     },
   ];
@@ -35,7 +35,7 @@ export default function Services() {
             Nos Services
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Expertise en mécanique et customisation automobile avec des solutions innovantes
+            Expertise en customisation automobile avec des solutions innovantes
           </p>
         </div>
 
