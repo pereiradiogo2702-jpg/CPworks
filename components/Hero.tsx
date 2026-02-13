@@ -34,9 +34,12 @@ export default function Hero() {
 
         {/* Heading with Glitch Effect */}
         <h1
-          className="text-5xl md:text-7xl font-bold mb-6 text-white glitch"
+          className="text-6xl md:text-8xl lg:text-9xl font-bold mb-6 text-white glitch"
           data-text="CPWorks"
-          style={{ fontFamily: "PastelTrunk, 'Comic Sans MS', cursive, sans-serif" }}
+          style={{
+            fontFamily: "PastelTrunk, 'Comic Sans MS', cursive, sans-serif",
+            letterSpacing: "0.15em"
+          }}
         >
           CPWorks
         </h1>
