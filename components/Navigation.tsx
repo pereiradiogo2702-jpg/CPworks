@@ -49,7 +49,13 @@ export default function Navigation() {
                 className="object-contain drop-shadow-[0_0_10px_rgba(168,85,247,0.3)] group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-all duration-300"
               />
             </div>
-            <span className="text-2xl sm:text-4xl font-bold">
+            <span
+              className="text-2xl sm:text-4xl font-bold"
+              style={{
+                fontFamily: "PastelTrunk, 'Comic Sans MS', cursive, sans-serif",
+                letterSpacing: "0.05em"
+              }}
+            >
               <span className="text-white">CP</span>
               <span className="text-purple-500">Works</span>
             </span>

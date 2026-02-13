@@ -21,7 +21,13 @@ export default function StarrySky() {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 bg-clip-text text-transparent">
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 bg-clip-text text-transparent"
+            style={{
+              fontFamily: "PastelTrunk, 'Comic Sans MS', cursive, sans-serif",
+              letterSpacing: "0.1em"
+            }}
+          >
             ✨ Ciels Étoilés Sur Mesure
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-4">
