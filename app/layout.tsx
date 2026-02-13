@@ -25,6 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/PastelTrunk-Regular.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
