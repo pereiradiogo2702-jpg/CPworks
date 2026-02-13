@@ -37,8 +37,7 @@ export default function Hero() {
           className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white glitch"
           data-text="CPWorks"
           style={{
-            fontFamily: "PastelTrunk, 'Comic Sans MS', cursive, sans-serif",
-            letterSpacing: "0.15em"
+            fontFamily: "PastelTrunk, 'Comic Sans MS', cursive, sans-serif"
           }}
         >
           CPWorks
