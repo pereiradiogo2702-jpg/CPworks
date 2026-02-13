@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Pastel Trunk';
+  src: url('/fonts/PastelTrunk-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;

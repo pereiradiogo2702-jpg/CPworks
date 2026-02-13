@@ -36,6 +36,7 @@ export default function Hero() {
         <h1
           className="text-5xl md:text-7xl font-bold mb-6 text-white glitch"
           data-text="CPWorks"
+          style={{ fontFamily: "'Pastel Trunk', sans-serif" }}
         >
           CPWorks
         </h1>
