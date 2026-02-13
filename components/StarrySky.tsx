@@ -59,8 +59,8 @@ export default function StarrySky() {
         </div>
 
         {/* Carousel */}
-        <div className="mb-12 max-w-5xl mx-auto">
-          <div className="relative aspect-video rounded-2xl overflow-hidden border-2 border-purple-500/30 shadow-2xl shadow-purple-500/20">
+        <div className="mb-12 max-w-4xl mx-auto">
+          <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden border-2 border-purple-500/30 shadow-2xl shadow-purple-500/20">
             {/* Main Image with Glitch Effect */}
             <div
               className={`relative w-full h-full ${
