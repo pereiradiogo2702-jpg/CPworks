@@ -19,7 +19,7 @@ interface Product {
   stock: number;
 }
 
-export default function SearchResultsPage() {
+function SearchResults() {
   const [products, setProducts] = useState<Product[]>([]);
   const [addedToCart, setAddedToCart] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -284,5 +284,17 @@ export default function SearchResultsPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function SearchResultsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Chargement...</div>
+      </div>
+    }>
+      <SearchResults />
+    </Suspense>
   );
 }
