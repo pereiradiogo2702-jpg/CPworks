@@ -262,7 +262,7 @@ export default function VehicleModel3D({
   // Position de caméra spécifique par marque
   const getCameraPosition = (): [number, number, number] => {
     if (brandName === 'Audi') {
-      return [2.5, 1.8, 2.5]; // Audi - BON, ne pas toucher
+      return [4, 3, 4]; // Audi - Caméra éloignée
     } else if (brandName === 'BMW' || brandName === 'Mercedes-Benz') {
       return [5, 3.5, 5]; // BMW et Mercedes - Caméra rapprochée
     } else if (brandName === 'Volkswagen') {
