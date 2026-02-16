@@ -61,7 +61,8 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         meshCount++;
-        console.log('Found mesh:', child.name || 'unnamed', 'with material:', !!child.material);
+        const mesh = child as THREE.Mesh;
+        console.log('Found mesh:', child.name || 'unnamed', 'with material:', !!mesh.material);
       }
     });
     console.log('Total meshes found:', meshCount);
@@ -76,13 +77,13 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
   // Center and scale the model - Performance optimisée + réflexions réduites
   scene.traverse((child) => {
     if ((child as THREE.Mesh).isMesh) {
-      child.castShadow = false; // Désactivé pour performance
-      child.receiveShadow = false; // Désactivé pour performance
+      const mesh = child as THREE.Mesh;
+      mesh.castShadow = false; // Désactivé pour performance
+      mesh.receiveShadow = false; // Désactivé pour performance
 
       // Matériaux - Approche différente pour Mercedes
-      if (child.material) {
-        const mesh = child as THREE.Mesh;
-        const materials = Array.isArray(child.material) ? child.material : [child.material];
+      if (mesh.material) {
+        const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
 
         materials.forEach((material: any) => {
           material.visible = true;
