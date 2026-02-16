@@ -179,13 +179,15 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
       clonedScene.position.y += 1.5; // Monter la Golf GTI en Y
     } else if (isAudi) {
       clonedScene.position.y += 0.8; // Monter l'Audi en Y
+    } else if (isBMW || isMercedes) {
+      clonedScene.position.y -= 0.8; // Baisser BMW/Mercedes pour pas cacher derrière barre
     }
 
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
 
     // Calcul de l'échelle - Modèles plus gros pour meilleure visibilité
-    let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 3.5 / maxDim : 3.0 / maxDim));
+    let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 7.0 / maxDim : 3.0 / maxDim));
 
     console.log('📏 Model dimensions:', {
       url,
@@ -262,7 +264,7 @@ export default function VehicleModel3D({
     if (brandName === 'Audi') {
       return [2.5, 1.8, 2.5]; // Audi - BON, ne pas toucher
     } else if (brandName === 'BMW' || brandName === 'Mercedes-Benz') {
-      return [11, 8, 11]; // BMW et Mercedes - Caméra très éloignée
+      return [5, 3.5, 5]; // BMW et Mercedes - Caméra rapprochée
     } else if (brandName === 'Volkswagen') {
       return [1.8, 1.3, 1.8]; // Volkswagen - BON, ne pas toucher
     } else {
