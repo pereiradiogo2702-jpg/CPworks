@@ -176,7 +176,7 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
 
     // Ajuster la position Y pour Volkswagen et Audi
     if (isVolkswagen) {
-      clonedScene.position.y += 1.5; // Monter la Golf GTI en Y
+      clonedScene.position.y += 1.0; // Monter la Golf GTI en Y (descendu un peu)
     } else if (isAudi) {
       clonedScene.position.y += 0.8; // Monter l'Audi en Y
     } else if (isBMW || isMercedes) {
@@ -266,7 +266,7 @@ export default function VehicleModel3D({
     } else if (brandName === 'BMW' || brandName === 'Mercedes-Benz') {
       return [5, 3.5, 5]; // BMW et Mercedes - Caméra rapprochée
     } else if (brandName === 'Volkswagen') {
-      return [1.8, 1.3, 1.8]; // Volkswagen - BON, ne pas toucher
+      return [7.5, 5.6, 7.5]; // Volkswagen - Caméra encore plus éloignée
     } else {
       return [4, 3, 4]; // Autres marques
     }
