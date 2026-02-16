@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, PerspectiveCamera, Html, useProgress } from '@react-three/drei';
-import { Suspense, useState, useEffect, Component, ReactNode } from 'react';
+import { Suspense, useState, useEffect, useMemo, Component, ReactNode } from 'react';
 import * as THREE from 'three';
 
 // Error Boundary to catch model loading errors
@@ -49,7 +49,10 @@ interface Model3DProps {
 
 // Component that loads and displays the 3D model with progress
 function Model3D({ url, onError, brandName }: Model3DProps) {
-  const { scene } = useGLTF(url, true);
+  const { scene: originalScene } = useGLTF(url, true);
+
+  // IMPORTANT: Clone la scène pour éviter de modifier l'original en cache
+  const scene = useMemo(() => originalScene.clone(), [originalScene]);
 
   useEffect(() => {
     console.log('🚗 Loading 3D model:', url);
