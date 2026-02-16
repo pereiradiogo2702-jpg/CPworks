@@ -194,8 +194,8 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z);
 
-  // Calcul de l'échelle - BMW et Mercedes plus loin, Audi et VW plus gros
-  let scale = isAudi ? 4.5 / maxDim : (isVolkswagen ? 10.0 / maxDim : (isBMW || isMercedes ? 1.5 / maxDim : 2.0 / maxDim));
+  // Calcul de l'échelle - Modèles plus gros pour meilleure visibilité
+  let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 3.5 / maxDim : 3.0 / maxDim));
 
   console.log('📏 Model dimensions:', {
     url,
@@ -282,13 +282,13 @@ export default function VehicleModel3D({
   // Position de caméra spécifique par marque
   const getCameraPosition = (): [number, number, number] => {
     if (brandName === 'Audi') {
-      return [3, 2, 3]; // Très proche pour Audi
+      return [2.5, 1.8, 2.5]; // Audi - BON, ne pas toucher
     } else if (brandName === 'BMW' || brandName === 'Mercedes-Benz') {
-      return [12, 8, 12]; // Extrêmement loin pour BMW et Mercedes
+      return [11, 8, 11]; // BMW et Mercedes - Caméra très éloignée
     } else if (brandName === 'Volkswagen') {
-      return [2, 1.5, 2]; // Très très proche pour Volkswagen
+      return [1.8, 1.3, 1.8]; // Volkswagen - BON, ne pas toucher
     } else {
-      return [6, 4, 6]; // Distance moyenne pour les autres
+      return [4, 3, 4]; // Autres marques
     }
   };
 
