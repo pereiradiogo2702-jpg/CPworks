@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, PerspectiveCamera, Html, useProgress } from '@react-three/drei';
-import { Suspense, useState, useEffect, useMemo, Component, ReactNode } from 'react';
+import { Suspense, useState, useMemo, Component, ReactNode } from 'react';
 import * as THREE from 'three';
 
 // Error Boundary to catch model loading errors
@@ -51,183 +51,158 @@ interface Model3DProps {
 function Model3D({ url, onError, brandName }: Model3DProps) {
   const { scene: originalScene } = useGLTF(url, true);
 
-  // IMPORTANT: Clone la scène pour éviter de modifier l'original en cache
-  const scene = useMemo(() => originalScene.clone(), [originalScene]);
+  // IMPORTANT: Clone ET transformer la scène dans useMemo pour garantir une seule exécution
+  const scene = useMemo(() => {
+    console.log('🚗 Cloning and transforming 3D model:', url, 'Brand:', brandName);
 
-  useEffect(() => {
-    console.log('🚗 Loading 3D model:', url);
-    console.log('Scene object:', scene);
-    console.log('Scene children count:', scene.children.length);
+    // Clone la scène
+    const clonedScene = originalScene.clone();
 
-    // Log all meshes found
-    let meshCount = 0;
-    scene.traverse((child) => {
+    // Déterminer la marque
+    const isBMW = brandName === 'BMW';
+    const isMercedes = brandName === 'Mercedes-Benz';
+    const isAudi = brandName === 'Audi';
+    const isVolkswagen = brandName === 'Volkswagen';
+
+    // Center and scale the model - Performance optimisée + réflexions réduites
+    clonedScene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
-        meshCount++;
         const mesh = child as THREE.Mesh;
-        console.log('Found mesh:', child.name || 'unnamed', 'with material:', !!mesh.material);
+        mesh.castShadow = false; // Désactivé pour performance
+        mesh.receiveShadow = false; // Désactivé pour performance
+
+        // Matériaux - Approche différente pour Mercedes
+        if (mesh.material) {
+          const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+
+          materials.forEach((material: any) => {
+            material.visible = true;
+            material.side = THREE.DoubleSide;
+
+            if (isMercedes) {
+              // Mercedes: meilleure qualité visuelle
+              if (material.map) {
+                material.map.anisotropy = 4; // Meilleure qualité
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              // Normal maps réactivées
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              // Émission réduite
+              if (material.emissive && material.emissive.getHex() !== 0x000000) {
+                material.emissiveIntensity = Math.max(material.emissiveIntensity || 0, 0.5);
+              }
+              // Réduire réflexions
+              material.envMapIntensity = 0.2;
+            } else if (isVolkswagen) {
+              // Volkswagen: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              // Ne pas forcer de couleur, garder l'original
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isAudi) {
+              // Audi: meilleure qualité visuelle
+              material.transparent = false;
+              material.opacity = 1.0;
+
+              // Force white color if black
+              if (!material.color || material.color.getHex() === 0x000000) {
+                material.color = new THREE.Color(0xffffff);
+              }
+
+              if (material.emissive) {
+                material.emissive = new THREE.Color(0x222222);
+                material.emissiveIntensity = 0.2;
+              }
+
+              if (material.map) {
+                material.map.anisotropy = 4; // Meilleure qualité
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4; // Meilleure qualité
+              }
+
+              material.envMapIntensity = 0;
+              material.metalness = Math.min(material.metalness || 0, 0.3);
+              material.roughness = Math.max(material.roughness || 0, 0.7);
+            } else {
+              // Autres marques: meilleure qualité visuelle
+              material.transparent = false;
+              material.opacity = 1.0;
+              // Autres marques: approche simplifiée
+              if (!material.color || material.color.getHex() === 0x000000) {
+                material.color = new THREE.Color(0xffffff);
+              }
+
+              if (material.emissive) {
+                material.emissive = new THREE.Color(0x222222);
+                material.emissiveIntensity = 0.2;
+              }
+
+              if (material.map) {
+                material.map.anisotropy = 4; // Meilleure qualité
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4; // Meilleure qualité
+              }
+
+              material.envMapIntensity = 0;
+              material.metalness = Math.min(material.metalness || 0, 0.3);
+              material.roughness = Math.max(material.roughness || 0, 0.7);
+            }
+
+            material.depthTest = true;
+            material.depthWrite = true;
+            material.needsUpdate = true;
+          });
+        }
       }
     });
-    console.log('Total meshes found:', meshCount);
-  }, [url, scene]);
 
-  // Déterminer la marque AVANT le traverse
-  const isBMW = brandName === 'BMW';
-  const isMercedes = brandName === 'Mercedes-Benz';
-  const isAudi = brandName === 'Audi';
-  const isVolkswagen = brandName === 'Volkswagen';
+    // Calculate bounding box to center the model
+    const box = new THREE.Box3().setFromObject(clonedScene);
+    const center = box.getCenter(new THREE.Vector3());
+    clonedScene.position.sub(center);
 
-  // Center and scale the model - Performance optimisée + réflexions réduites
-  scene.traverse((child) => {
-    if ((child as THREE.Mesh).isMesh) {
-      const mesh = child as THREE.Mesh;
-      mesh.castShadow = false; // Désactivé pour performance
-      mesh.receiveShadow = false; // Désactivé pour performance
-
-      // Matériaux - Approche différente pour Mercedes
-      if (mesh.material) {
-        const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-
-        materials.forEach((material: any) => {
-          material.visible = true;
-          material.side = THREE.DoubleSide;
-
-          if (isMercedes) {
-            // Mercedes: meilleure qualité visuelle
-            if (material.map) {
-              material.map.anisotropy = 4; // Meilleure qualité
-              material.map.colorSpace = THREE.SRGBColorSpace;
-            }
-            // Normal maps réactivées
-            if (material.normalMap) {
-              material.normalMap.anisotropy = 4;
-            }
-            // Émission réduite
-            if (material.emissive && material.emissive.getHex() !== 0x000000) {
-              material.emissiveIntensity = Math.max(material.emissiveIntensity || 0, 0.5);
-            }
-            // Réduire réflexions
-            material.envMapIntensity = 0.2;
-          } else if (isVolkswagen) {
-            // Volkswagen: préserver les couleurs d'origine
-            if (material.map) {
-              material.map.anisotropy = 4;
-              material.map.colorSpace = THREE.SRGBColorSpace;
-            }
-            if (material.normalMap) {
-              material.normalMap.anisotropy = 4;
-            }
-            // Ne pas forcer de couleur, garder l'original
-            material.envMapIntensity = 0.3;
-            material.metalness = material.metalness || 0.5;
-            material.roughness = material.roughness || 0.5;
-          } else if (isAudi) {
-            // Audi: meilleure qualité visuelle
-            material.transparent = false;
-            material.opacity = 1.0;
-
-            // Force white color if black
-            if (!material.color || material.color.getHex() === 0x000000) {
-              material.color = new THREE.Color(0xffffff);
-            }
-
-            if (material.emissive) {
-              material.emissive = new THREE.Color(0x222222);
-              material.emissiveIntensity = 0.2;
-            }
-
-            if (material.map) {
-              material.map.anisotropy = 4; // Meilleure qualité
-              material.map.colorSpace = THREE.SRGBColorSpace;
-            }
-            if (material.normalMap) {
-              material.normalMap.anisotropy = 4; // Meilleure qualité
-            }
-
-            material.envMapIntensity = 0;
-            material.metalness = Math.min(material.metalness || 0, 0.3);
-            material.roughness = Math.max(material.roughness || 0, 0.7);
-          } else {
-            // Autres marques: meilleure qualité visuelle
-            material.transparent = false;
-            material.opacity = 1.0;
-            // Autres marques: approche simplifiée
-            if (!material.color || material.color.getHex() === 0x000000) {
-              material.color = new THREE.Color(0xffffff);
-            }
-
-            if (material.emissive) {
-              material.emissive = new THREE.Color(0x222222);
-              material.emissiveIntensity = 0.2;
-            }
-
-            if (material.map) {
-              material.map.anisotropy = 4; // Meilleure qualité
-              material.map.colorSpace = THREE.SRGBColorSpace;
-            }
-            if (material.normalMap) {
-              material.normalMap.anisotropy = 4; // Meilleure qualité
-            }
-
-            material.envMapIntensity = 0;
-            material.metalness = Math.min(material.metalness || 0, 0.3);
-            material.roughness = Math.max(material.roughness || 0, 0.7);
-          }
-
-          material.depthTest = true;
-          material.depthWrite = true;
-          material.needsUpdate = true;
-        });
-      }
+    // Ajuster la position Y pour Volkswagen et Audi
+    if (isVolkswagen) {
+      clonedScene.position.y += 1.5; // Monter la Golf GTI en Y
+    } else if (isAudi) {
+      clonedScene.position.y += 0.8; // Monter l'Audi en Y
     }
-  });
 
-  // Calculate bounding box to center the model
-  const box = new THREE.Box3().setFromObject(scene);
-  const center = box.getCenter(new THREE.Vector3());
-  scene.position.sub(center);
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
 
-  // Ajuster la position Y pour Volkswagen et Audi
-  if (isVolkswagen) {
-    scene.position.y += 1.5; // Monter la Golf GTI en Y
-  } else if (isAudi) {
-    scene.position.y += 0.8; // Monter l'Audi en Y
-  }
+    // Calcul de l'échelle - Modèles plus gros pour meilleure visibilité
+    let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 3.5 / maxDim : 3.0 / maxDim));
 
-  const size = box.getSize(new THREE.Vector3());
-  const maxDim = Math.max(size.x, size.y, size.z);
+    console.log('📏 Model dimensions:', {
+      url,
+      brandName,
+      size: { x: size.x, y: size.y, z: size.z },
+      maxDim,
+      finalScale: scale,
+      center: { x: center.x, y: center.y, z: center.z }
+    });
 
-  // Calcul de l'échelle - Modèles plus gros pour meilleure visibilité
-  let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 3.5 / maxDim : 3.0 / maxDim));
+    clonedScene.scale.setScalar(scale);
 
-  console.log('📏 Model dimensions:', {
-    url,
-    brandName,
-    size: { x: size.x, y: size.y, z: size.z },
-    maxDim,
-    finalScale: scale,
-    center: { x: center.x, y: center.y, z: center.z }
-  });
+    // Force scene visibility
+    clonedScene.visible = true;
 
-  scene.scale.setScalar(scale);
-
-  // Force scene visibility
-  scene.visible = true;
-
-  // Count meshes and check geometry for debug display
-  let meshCount = 0;
-  let vertexCount = 0;
-  let visibleMeshCount = 0;
-  scene.traverse((child) => {
-    if ((child as THREE.Mesh).isMesh) {
-      meshCount++;
-      const mesh = child as THREE.Mesh;
-      if (mesh.visible && mesh.material) visibleMeshCount++;
-      if (mesh.geometry && mesh.geometry.attributes.position) {
-        vertexCount += mesh.geometry.attributes.position.count;
-      }
-    }
-  });
+    return clonedScene;
+  }, [originalScene, brandName, url]); // Recalculer uniquement si originalScene, brandName ou url change
 
   return <primitive object={scene} />;
 }
@@ -323,7 +298,7 @@ export default function VehicleModel3D({
       >
         <Suspense fallback={<LoadingSpinner />}>
           <ModelErrorBoundary onError={() => setError(true)} brandName={brandName}>
-            <Model3D url={modelPath} onError={() => setError(true)} brandName={brandName} />
+            <Model3D key={`${brandName}-${modelPath}`} url={modelPath} onError={() => setError(true)} brandName={brandName} />
           </ModelErrorBoundary>
 
           {/* Lighting - Optimisé pour performance */}
