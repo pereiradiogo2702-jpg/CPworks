@@ -23,9 +23,7 @@ export default function VehicleSelector() {
   }, [initializeVehicleData]);
 
   const selectedBrandData = selectedBrand ? getBrandById(selectedBrand) : null;
-  const availableYears = selectedBrandData
-    ? generateYearRange(selectedBrandData.startYear, selectedBrandData.endYear)
-    : [];
+  const availableYears = generateYearRange();
 
   return (
     <div className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 mb-8 shadow-xl">
