@@ -180,7 +180,7 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
     } else if (isAudi) {
       clonedScene.position.y += 0.8; // Monter l'Audi en Y
     } else if (isBMW || isMercedes) {
-      clonedScene.position.y -= 0.8; // Baisser BMW/Mercedes pour pas cacher derrière barre
+      clonedScene.position.y += 3.0; // Monter BMW/Mercedes beaucoup plus haut
     }
 
     const size = box.getSize(new THREE.Vector3());
