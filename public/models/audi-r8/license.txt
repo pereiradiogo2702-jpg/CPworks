@@ -1,0 +1,11 @@
+Model Information:
+* title:	Audi R8
+* source:	https://sketchfab.com/3d-models/audi-r8-0e5c6feed3ff489093e33e686dd8f796
+* author:	Randomness (https://sketchfab.com/throwbackthursdaymodels)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Audi R8" (https://sketchfab.com/3d-models/audi-r8-0e5c6feed3ff489093e33e686dd8f796) by Randomness (https://sketchfab.com/throwbackthursdaymodels) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

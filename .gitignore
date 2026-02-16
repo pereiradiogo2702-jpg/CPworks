@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Large 3D models (too big for git/vercel)
+public/models/bmw-m4-gt3.glb

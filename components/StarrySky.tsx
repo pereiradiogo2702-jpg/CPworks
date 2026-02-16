@@ -48,7 +48,7 @@ export default function StarrySky() {
               letterSpacing: "0.1em"
             }}
           >
-            ✨ Ciels Étoilés Sur Mesure
+            ★ Ciels Étoilés Sur Mesure
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-4">
             Transformez l'intérieur de votre véhicule en un ciel nocturne magique
@@ -72,7 +72,7 @@ export default function StarrySky() {
                   src={currentImage.src}
                   alt={currentImage.alt}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   onError={() => setImageErrors({ ...imageErrors, [currentImage.id]: true })}
                   priority
                 />
@@ -159,32 +159,6 @@ export default function StarrySky() {
             <p className="text-gray-400 text-sm">
               Intensité réglable et design sur mesure
             </p>
-          </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center">
-          <div className="bg-gradient-to-r from-purple-900/30 to-purple-800/30 border border-purple-500/30 rounded-2xl p-8 md:p-12 max-w-3xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              Prêt à transformer votre véhicule ?
-            </h3>
-            <p className="text-gray-300 mb-6 text-lg">
-              Contactez-nous pour un devis gratuit et personnalisé
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/contact"
-                className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/30"
-              >
-                Demander un Devis Gratuit
-              </a>
-              <a
-                href="tel:+33123456789"
-                className="px-8 py-4 bg-transparent border-2 border-purple-500 hover:bg-purple-500/10 text-purple-400 rounded-lg font-semibold transition-all duration-300"
-              >
-                📞 Appelez-nous
-              </a>
-            </div>
           </div>
         </div>
       </div>

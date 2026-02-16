@@ -1,0 +1,11 @@
+Model Information:
+* title:	Peugeot 3008
+* source:	https://sketchfab.com/3d-models/peugeot-3008-4f7c7318a29d4e16a6047c2d58bba28d
+* author:	iSteven (https://sketchfab.com/OneSteven)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Peugeot 3008" (https://sketchfab.com/3d-models/peugeot-3008-4f7c7318a29d4e16a6047c2d58bba28d) by iSteven (https://sketchfab.com/OneSteven) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
