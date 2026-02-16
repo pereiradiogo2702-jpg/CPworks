@@ -7,6 +7,7 @@ export default function StarrySky() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isGlitching, setIsGlitching] = useState(false);
   const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>({});
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const starryImages = [
     { id: 1, src: '/starry1.jpg', alt: 'Ciel étoilé 1', title: 'Installation Premium' },
@@ -68,14 +69,19 @@ export default function StarrySky() {
               }`}
             >
               {!imageErrors[currentImage.id] ? (
-                <Image
-                  src={currentImage.src}
-                  alt={currentImage.alt}
-                  fill
-                  className="object-contain"
-                  onError={() => setImageErrors({ ...imageErrors, [currentImage.id]: true })}
-                  priority
-                />
+                <div
+                  onClick={() => setIsLightboxOpen(true)}
+                  className="cursor-pointer w-full h-full"
+                >
+                  <Image
+                    src={currentImage.src}
+                    alt={currentImage.alt}
+                    fill
+                    className="object-contain"
+                    onError={() => setImageErrors({ ...imageErrors, [currentImage.id]: true })}
+                    priority
+                  />
+                </div>
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-purple-900/50 to-gray-900 flex items-center justify-center">
                   <div className="text-center">
@@ -86,10 +92,10 @@ export default function StarrySky() {
               )}
 
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
 
               {/* Image Title */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-center">
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-center pointer-events-none">
                 <h3 className="text-3xl font-bold text-white mb-2">{currentImage.title}</h3>
                 <p className="text-purple-300">Installation #{currentImage.id} - {starryImages.length}</p>
               </div>
@@ -162,6 +168,86 @@ export default function StarrySky() {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {isLightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Close Button */}
+          <button
+            onClick={() => setIsLightboxOpen(false)}
+            className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white text-2xl transition-all duration-300 z-10"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+
+          {/* Navigation Previous Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              prevImage();
+            }}
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/10 hover:bg-purple-600 border-2 border-white/30 rounded-full flex items-center justify-center text-white text-2xl transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-purple-500/50 z-10"
+            aria-label="Image précédente"
+          >
+            ←
+          </button>
+
+          {/* Navigation Next Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              nextImage();
+            }}
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/10 hover:bg-purple-600 border-2 border-white/30 rounded-full flex items-center justify-center text-white text-2xl transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-purple-500/50 z-10"
+            aria-label="Image suivante"
+          >
+            →
+          </button>
+
+          {/* Image Container */}
+          <div
+            className="relative w-full h-full flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={currentImage.src}
+              alt={currentImage.alt}
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+
+          {/* Image Info & Indicators */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
+            <h3 className="text-white text-2xl font-bold mb-2">{currentImage.title}</h3>
+            <p className="text-purple-300 mb-4">Image {currentIndex + 1} sur {starryImages.length}</p>
+
+            {/* Indicators */}
+            <div className="flex gap-2 justify-center">
+              {starryImages.map((img, idx) => (
+                <button
+                  key={img.id}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentIndex(idx);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === currentIndex
+                      ? 'bg-purple-500 w-6'
+                      : 'bg-white/50 hover:bg-white/80'
+                  }`}
+                  aria-label={`Aller à l'image ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         @keyframes glitch-carousel {
