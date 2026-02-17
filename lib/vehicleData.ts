@@ -6,9 +6,9 @@ const europeanBrands: VehicleBrand[] = [
   { id: 'brand-mercedes', name: 'Mercedes-Benz', modelPath: '/models/mercedes-a45/scene.gltf', startYear: 2010, order: 2 },
   { id: 'brand-audi', name: 'Audi', modelPath: '/models/2020_audi_rs5.glb', startYear: 2010, order: 3 },
   { id: 'brand-volkswagen', name: 'Volkswagen', modelPath: '/models/volkswagen-golf-gti-2021/scene.gltf', startYear: 2010, order: 4 },
-  { id: 'brand-porsche', name: 'Porsche', modelPath: '/models/bmw-m4-widebody/scene.gltf', startYear: 2010, order: 5 }, // TEMP: utilise BMW
-  { id: 'brand-peugeot', name: 'Peugeot', modelPath: '/models/bmw-m4-widebody/scene.gltf', startYear: 2010, order: 6 }, // TEMP: utilise BMW
-  { id: 'brand-renault', name: 'Renault', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 7 },
+  { id: 'brand-porsche', name: 'Porsche', modelPath: '/models/porsche-911-gt3/scene.gltf', startYear: 2010, order: 5 },
+  { id: 'brand-peugeot', name: 'Peugeot', modelPath: '/models/peugeot-3008/scene.gltf', startYear: 2010, order: 6 },
+  { id: 'brand-renault', name: 'Renault', modelPath: '/models/renault-clio/scene.gltf', startYear: 2010, order: 7 },
   { id: 'brand-citroen', name: 'Citroën', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 8 },
   { id: 'brand-fiat', name: 'Fiat', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 9 },
   { id: 'brand-volvo', name: 'Volvo', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 10 },

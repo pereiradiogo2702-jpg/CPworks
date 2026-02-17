@@ -63,6 +63,9 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
     const isMercedes = brandName === 'Mercedes-Benz';
     const isAudi = brandName === 'Audi';
     const isVolkswagen = brandName === 'Volkswagen';
+    const isPorsche = brandName === 'Porsche';
+    const isPeugeot = brandName === 'Peugeot';
+    const isRenault = brandName === 'Renault';
 
     // Center and scale the model - Performance optimisée + réflexions réduites
     clonedScene.traverse((child) => {
@@ -105,6 +108,19 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
                 material.normalMap.anisotropy = 4;
               }
               // Ne pas forcer de couleur, garder l'original
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isRenault) {
+              // Renault: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              // Garder les couleurs originales du modèle
               material.envMapIntensity = 0.3;
               material.metalness = material.metalness || 0.5;
               material.roughness = material.roughness || 0.5;
@@ -169,25 +185,70 @@ function Model3D({ url, onError, brandName }: Model3DProps) {
       }
     });
 
+    // Pour Renault: vitres en noir/gris foncé
+    if (isRenault) {
+      clonedScene.traverse((child) => {
+        if ((child as THREE.Mesh).isMesh) {
+          const mesh = child as THREE.Mesh;
+          const meshNameLower = mesh.name.toLowerCase();
+          const isGlass = meshNameLower.includes('glass') || meshNameLower.includes('window') ||
+                          meshNameLower.includes('windshield') || meshNameLower.includes('vitre') ||
+                          meshNameLower.includes('light') || meshNameLower.includes('lihgt');
+          if (isGlass) {
+            const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            materials.forEach((mat: any) => {
+              mat.color = new THREE.Color(0x1a1a1a); // Noir/gris très foncé
+              mat.transparent = true;
+              mat.opacity = 0.85;
+              mat.needsUpdate = true;
+            });
+          }
+        }
+      });
+    }
+
+    // Pour Peugeot: supprimer le plateau/sol sous la voiture
+    if (isPeugeot) {
+      clonedScene.traverse((child) => {
+        if ((child as THREE.Mesh).isMesh) {
+          const mesh = child as THREE.Mesh;
+          const meshBox = new THREE.Box3().setFromObject(mesh);
+          const meshSize = meshBox.getSize(new THREE.Vector3());
+          // Détecter un plateau: hauteur Y très petite par rapport à X et Z
+          const isFlatPlate = meshSize.y < 0.05 * Math.max(meshSize.x, meshSize.z);
+          if (isFlatPlate) {
+            mesh.visible = false;
+            console.log('🗑️ Plateau supprimé:', mesh.name, meshSize);
+          }
+        }
+      });
+    }
+
     // Calculate bounding box to center the model
     const box = new THREE.Box3().setFromObject(clonedScene);
     const center = box.getCenter(new THREE.Vector3());
     clonedScene.position.sub(center);
 
-    // Ajuster la position Y pour Volkswagen et Audi
+    // Ajuster la position Y pour chaque marque
     if (isVolkswagen) {
       clonedScene.position.y += 1.0; // Monter la Golf GTI en Y (descendu un peu)
     } else if (isAudi) {
       clonedScene.position.y += 0.8; // Monter l'Audi en Y
     } else if (isBMW || isMercedes) {
       clonedScene.position.y += 3.0; // Monter BMW/Mercedes beaucoup plus haut
+    } else if (isPorsche) {
+      clonedScene.position.y -= 0.8; // Porsche - position validée
+    } else if (isPeugeot) {
+      clonedScene.position.y += 4.0; // Peugeot - monter en Y
+    } else if (isRenault) {
+      clonedScene.position.y += 0.8; // Renault - position initiale
     }
 
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
 
     // Calcul de l'échelle - Modèles plus gros pour meilleure visibilité
-    let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 7.0 / maxDim : 3.0 / maxDim));
+    let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 7.0 / maxDim : (isPorsche ? 6.0 / maxDim : (isPeugeot ? 6.0 / maxDim : (isRenault ? 6.0 / maxDim : 3.0 / maxDim)))));
 
     console.log('📏 Model dimensions:', {
       url,
@@ -267,6 +328,12 @@ export default function VehicleModel3D({
       return [5, 3.5, 5]; // BMW et Mercedes - Caméra rapprochée
     } else if (brandName === 'Volkswagen') {
       return [7.5, 5.6, 7.5]; // Volkswagen - Caméra encore plus éloignée
+    } else if (brandName === 'Porsche') {
+      return [5, 3.5, 5]; // Porsche - Caméra similaire BMW
+    } else if (brandName === 'Peugeot') {
+      return [3.5, 2.5, 3.5]; // Peugeot - Caméra rapprochée
+    } else if (brandName === 'Renault') {
+      return [5, 3.5, 5]; // Renault - Caméra éloignée
     } else {
       return [4, 3, 4]; // Autres marques
     }
@@ -283,7 +350,7 @@ export default function VehicleModel3D({
   }
 
   return (
-    <div style={{ height, maxHeight: height, overflow: 'hidden', contain: 'layout style paint' }} className="w-full rounded-xl bg-gradient-to-br from-gray-900 to-black">
+    <div style={{ height, maxHeight: height, overflow: 'hidden', contain: 'layout style paint', backgroundImage: 'url(/los-santos.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }} className="w-full rounded-xl">
       <Canvas
         camera={{ position: cameraPosition, fov: 50 }}
         onError={() => setError(true)}
