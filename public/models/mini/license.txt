@@ -1,0 +1,11 @@
+Model Information:
+* title:	2016 Mini John Cooper Works Cabrio
+* source:	https://sketchfab.com/3d-models/2016-mini-john-cooper-works-cabrio-704688ec24e04155aa45a1a2018286eb
+* author:	Ddiaz Design (https://sketchfab.com/ddiaz-design)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "2016 Mini John Cooper Works Cabrio" (https://sketchfab.com/3d-models/2016-mini-john-cooper-works-cabrio-704688ec24e04155aa45a1a2018286eb) by Ddiaz Design (https://sketchfab.com/ddiaz-design) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)

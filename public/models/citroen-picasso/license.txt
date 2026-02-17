@@ -1,0 +1,11 @@
+Model Information:
+* title:	2018 Citroën C4 Lounge
+* source:	https://sketchfab.com/3d-models/2018-citroen-c4-lounge-e330880f272449709c36050a393e1574
+* author:	tonielpro520 (https://sketchfab.com/tonielpro520)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "2018 Citroën C4 Lounge" (https://sketchfab.com/3d-models/2018-citroen-c4-lounge-e330880f272449709c36050a393e1574) by tonielpro520 (https://sketchfab.com/tonielpro520) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

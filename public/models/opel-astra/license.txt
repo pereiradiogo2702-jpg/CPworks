@@ -1,0 +1,8 @@
+Model Information:
+* title:	Opel Astra J Sedan
+* source:	https://sketchfab.com/3d-models/opel-astra-j-sedan-0c7a50857f8b4302b290a0654f8b2bc7
+* author:	KOElkast1007 (https://sketchfab.com/koelkastasbers)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
