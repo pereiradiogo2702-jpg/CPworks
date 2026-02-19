@@ -53,12 +53,24 @@ export default function SignupPage() {
     );
 
     if (success) {
-      router.push('/');
+      // Afficher un message de succès temporaire
+      setLoading(false);
+
+      // Créer une notification de bienvenue
+      const welcomeMessage = document.createElement('div');
+      welcomeMessage.className = 'fixed top-24 left-1/2 -translate-x-1/2 bg-green-600 text-white px-8 py-4 rounded-lg shadow-2xl z-50 animate-bounce';
+      welcomeMessage.innerHTML = `✅ Bienvenue ${formData.name} ! Vous êtes maintenant connecté`;
+      document.body.appendChild(welcomeMessage);
+
+      // Rediriger vers les produits après 2 secondes
+      setTimeout(() => {
+        welcomeMessage.remove();
+        router.push('/products');
+      }, 2000);
     } else {
       setError('Cet email est déjà utilisé');
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
