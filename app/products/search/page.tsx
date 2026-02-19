@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useCartStore } from '@/store/cartStore';
 import { useVehicleStore } from '@/store/vehicleStore';
 import { oilDatabase, OilSpec } from '@/lib/oilData';
+import FlyToCartAnimation from '@/components/FlyToCartAnimation';
 
 interface Product {
   id: string;
@@ -61,6 +62,7 @@ function SearchResults() {
   const [oilQty1L, setOilQty1L] = useState(1);
   const [oilQty5L, setOilQty5L] = useState(1);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [flyAnimation, setFlyAnimation] = useState<{ productImage: string; startPosition: { x: number; y: number } } | null>(null);
 
   const OIL_PRICES = { '1L': 14.99, '5L': 54.99 };
 
@@ -85,8 +87,21 @@ function SearchResults() {
     }
   }, []);
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: Product, event: React.MouseEvent<HTMLButtonElement>) => {
     if (product.stock <= 0) return;
+
+    // Capturer la position du bouton cliqué
+    const rect = event.currentTarget.getBoundingClientRect();
+    const startPosition = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+
+    // Déclencher l'animation
+    setFlyAnimation({
+      productImage: product.image,
+      startPosition,
+    });
 
     addItem({
       id: product.id,
@@ -101,8 +116,22 @@ function SearchResults() {
     setTimeout(() => setAddedToCart(null), 2000);
   };
 
-  const handleAddOilToCart = (spec: OilSpec, format: '1L' | '5L') => {
+  const handleAddOilToCart = (spec: OilSpec, format: '1L' | '5L', event: React.MouseEvent<HTMLButtonElement>) => {
     const qty = format === '1L' ? oilQty1L : oilQty5L;
+
+    // Capturer la position du bouton cliqué
+    const rect = event.currentTarget.getBoundingClientRect();
+    const startPosition = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+
+    // Déclencher l'animation (sans image pour l'huile)
+    setFlyAnimation({
+      productImage: '',
+      startPosition,
+    });
+
     addItem({
       id: `oil-${selectedBrand}-${selectedModel}-${spec.oil}-${format}`,
       name: `Huile moteur ${spec.oil} ${format} — ${selectedBrandData?.name} ${selectedModel}`,
@@ -348,7 +377,7 @@ function SearchResults() {
                                     <span className="text-gray-400 text-sm ml-auto">= {(OIL_PRICES[fmt] * qty).toFixed(2)} €</span>
                                   </div>
                                   <button
-                                    onClick={() => handleAddOilToCart({ ...oilSpec, oil: oilDisplay.oil, spec: oilDisplay.spec, capacity: oilDisplay.capacity, engine: oilDisplay.engine }, fmt)}
+                                    onClick={(e) => handleAddOilToCart({ ...oilSpec, oil: oilDisplay.oil, spec: oilDisplay.spec, capacity: oilDisplay.capacity, engine: oilDisplay.engine }, fmt, e)}
                                     className={`w-full py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 ${
                                       added ? 'bg-green-600 text-white' : 'bg-yellow-500 hover:bg-yellow-400 text-black'
                                     }`}
@@ -429,7 +458,7 @@ function SearchResults() {
                         {product.price}€
                       </span>
                       <button
-                        onClick={() => handleAddToCart(product)}
+                        onClick={(e) => handleAddToCart(product, e)}
                         className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
                           addedToCart === product.id
                             ? 'bg-green-600 text-white'
@@ -467,6 +496,15 @@ function SearchResults() {
           </a>
         </div>
       </section>
+
+      {/* Fly to Cart Animation */}
+      {flyAnimation && (
+        <FlyToCartAnimation
+          productImage={flyAnimation.productImage}
+          startPosition={flyAnimation.startPosition}
+          onComplete={() => setFlyAnimation(null)}
+        />
+      )}
     </div>
   );
 }

@@ -93,7 +93,7 @@ export default function Navigation() {
 
             {/* Cart Icon */}
             <Link href="/cart" className="relative group">
-              <div className="text-2xl text-gray-300 group-hover:text-purple-400 transition-colors">
+              <div id="cart-icon" className="text-2xl text-gray-300 group-hover:text-purple-400 transition-colors">
                 🛒
               </div>
               {cartItemCount > 0 && (
@@ -134,7 +134,7 @@ export default function Navigation() {
           <div className="flex lg:hidden items-center gap-4">
             {/* Cart Icon Mobile */}
             <Link href="/cart" className="relative group">
-              <div className="text-2xl text-gray-300 group-hover:text-purple-400 transition-colors">
+              <div id="cart-icon" className="text-2xl text-gray-300 group-hover:text-purple-400 transition-colors">
                 🛒
               </div>
               {cartItemCount > 0 && (
