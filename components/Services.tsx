@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 export default function Services() {
   const services = [
     {
@@ -19,10 +23,10 @@ export default function Services() {
       features: ['Bandes LED sur mesure', 'Éclairage pédalier', 'Logos projecteurs'],
     },
     {
-      icon: '🚗',
-      title: 'Entretien Automobile',
-      description: 'Services complets pour l\'entretien et le soin de votre véhicule.',
-      features: ['Entretien régulier', 'Diagnostic électronique', 'Réparations toutes marques'],
+      icon: '🪟',
+      title: 'Vitre Tintée',
+      description: 'Pose de films teintés professionnels pour une protection solaire et une intimité optimales.',
+      features: ['Film homologué', 'Toutes vitres', 'Garantie pose'],
     },
   ];
 
@@ -31,19 +35,35 @@ export default function Services() {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+          <motion.h2
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent"
+          >
             Nos Services
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-gray-400 text-lg max-w-2xl mx-auto"
+          >
             Expertise en customisation automobile avec des solutions innovantes
-          </p>
+          </motion.p>
         </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105"
             >
               {/* Glow effect on hover */}
@@ -51,11 +71,6 @@ export default function Services() {
 
               {/* Content */}
               <div className="relative z-10">
-                {/* Icon */}
-                <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
-                </div>
-
                 {/* Title */}
                 <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">
                   {service.title}
@@ -76,19 +91,25 @@ export default function Services() {
                   ))}
                 </ul>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-center mt-16"
+        >
           <a
             href="/contact"
             className="inline-block px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/30"
           >
             Demander un Devis
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

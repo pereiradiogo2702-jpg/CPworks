@@ -8,6 +8,7 @@ export const dynamic = 'force-dynamic';
 import Image from 'next/image';
 import { useCartStore } from '@/store/cartStore';
 import { useVehicleStore } from '@/store/vehicleStore';
+import { oilDatabase, OilSpec } from '@/lib/oilData';
 
 interface Product {
   id: string;
@@ -19,10 +20,49 @@ interface Product {
   stock: number;
 }
 
+interface OilVariant {
+  engine: string;
+  oil: string;
+  spec: string;
+  capacity: string;
+}
+
+function parseOilVariants(spec: OilSpec): OilVariant[] {
+  const engines = spec.engine.split(' / ');
+  const oils = spec.oil.split(' / ');
+  const specs = spec.spec.split(' / ');
+  const capacities = spec.capacity.split(' / ');
+
+  const numVariants = Math.max(engines.length, oils.length);
+  if (numVariants <= 1) return [];
+
+  const allEnginesSame = engines.length === 1;
+
+  return Array.from({ length: numVariants }, (_, i) => {
+    const eng = engines[i] || engines[0];
+    let oilVal = oils[i] || oils[0];
+    let specVal = specs[i] || specs[0];
+    if (specVal && !specVal.includes(' ') && specs[0].includes(' ')) {
+      const prefix = specs[0].substring(0, specs[0].lastIndexOf(' '));
+      specVal = `${prefix} ${specVal}`;
+    }
+    const capVal = capacities[i] || spec.capacity;
+    // Si tous les moteurs sont identiques, afficher l'huile comme label
+    const label = allEnginesSame ? oilVal.trim() : eng.trim();
+    return { engine: label, oil: oilVal.trim(), spec: specVal.trim(), capacity: capVal.trim() };
+  });
+}
+
 function SearchResults() {
   const [products, setProducts] = useState<Product[]>([]);
   const [addedToCart, setAddedToCart] = useState<string | null>(null);
+  const [oilAddedToCart, setOilAddedToCart] = useState<'1L' | '5L' | null>(null);
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState<number>(0);
+  const [oilQty1L, setOilQty1L] = useState(1);
+  const [oilQty5L, setOilQty5L] = useState(1);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const OIL_PRICES = { '1L': 14.99, '5L': 54.99 };
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -61,6 +101,20 @@ function SearchResults() {
     setTimeout(() => setAddedToCart(null), 2000);
   };
 
+  const handleAddOilToCart = (spec: OilSpec, format: '1L' | '5L') => {
+    const qty = format === '1L' ? oilQty1L : oilQty5L;
+    addItem({
+      id: `oil-${selectedBrand}-${selectedModel}-${spec.oil}-${format}`,
+      name: `Huile moteur ${spec.oil} ${format} — ${selectedBrandData?.name} ${selectedModel}`,
+      price: OIL_PRICES[format],
+      quantity: qty,
+      image: '',
+      stock: 99,
+    });
+    setOilAddedToCart(format);
+    setTimeout(() => setOilAddedToCart(null), 2000);
+  };
+
   // Filter products
   const filteredProducts = useMemo(() => {
     let filtered = products;
@@ -97,8 +151,38 @@ function SearchResults() {
 
   const selectedBrandData = selectedBrand ? getBrandById(selectedBrand) : null;
 
+  // Trouver l'huile moteur correspondante
+  const oilSpec: OilSpec | null = (() => {
+    if (!selectedBrandData || !selectedModel) return null;
+    const brandData = oilDatabase.find(b => b.brand.toLowerCase() === selectedBrandData.name.toLowerCase());
+    if (!brandData) return null;
+    return brandData.models.find(m => m.model.toLowerCase() === selectedModel.toLowerCase()) || null;
+  })();
+
+  // Variantes moteur
+  const oilVariants: OilVariant[] = oilSpec ? parseOilVariants(oilSpec) : [];
+  const hasOilVariants = oilVariants.length > 1;
+  // Toujours afficher une variante — index 0 par défaut
+  const oilDisplay: OilVariant | null = hasOilVariants
+    ? (oilVariants[selectedVariantIndex] ?? oilVariants[0])
+    : (oilSpec ? { engine: oilSpec.engine, oil: oilSpec.oil, spec: oilSpec.spec, capacity: oilSpec.capacity } : null);
+
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black relative">
+      {/* Video Background */}
+      <div className="fixed inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src="/search-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/60"></div>
+      </div>
+
       {/* Menu Hamburger */}
       <div className="fixed top-4 right-4 z-50">
         <button
@@ -135,7 +219,7 @@ function SearchResults() {
       </div>
 
       {/* Header */}
-      <section className="bg-gradient-to-b from-purple-900/20 to-black py-20 pt-32">
+      <section className="relative z-10 bg-gradient-to-b from-purple-900/20 to-transparent py-20 pt-32">
         <div className="container mx-auto px-6">
           <h1 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
             Résultats de Recherche
@@ -184,8 +268,108 @@ function SearchResults() {
       </section>
 
       {/* Products Grid */}
-      <section className="py-16 bg-gradient-to-b from-black via-gray-900 to-black">
+      <section className="relative z-10 py-16">
         <div className="container mx-auto px-6">
+          {/* Carte Huile Moteur */}
+          {oilSpec && (
+            <div className="mb-10">
+              <h2 className="text-xl font-bold text-purple-400 mb-4">
+                Huile moteur recommandée pour votre {selectedBrandData?.name} {selectedModel}
+              </h2>
+              <div className="bg-gradient-to-br from-yellow-900/20 to-gray-900/60 border border-yellow-500/30 rounded-xl overflow-hidden">
+                <div className="bg-yellow-500/10 px-6 py-3 flex items-center gap-2 border-b border-yellow-500/20">
+                  <span className="text-yellow-400 font-semibold text-sm">Huile Moteur</span>
+                  <span className="ml-auto text-xs text-gray-400">Recommandation constructeur</span>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-white mb-3">
+                    {selectedBrandData?.name} {selectedModel}
+                  </h3>
+
+                  {oilSpec.oil === 'N/A' ? (
+                    <p className="text-blue-300 text-sm">Véhicule électrique — pas de vidange moteur requise.</p>
+                  ) : (
+                    <>
+                      {/* Sélecteur de moteur si plusieurs variantes */}
+                      {hasOilVariants && (
+                        <div className="mb-5">
+                          <p className="text-yellow-400 text-sm font-semibold mb-2">Sélectionnez votre moteur :</p>
+                          <div className="flex flex-wrap gap-2">
+                            {oilVariants.map((v, i) => (
+                              <button
+                                key={i}
+                                onClick={() => { setSelectedVariantIndex(i); setOilAddedToCart(null); }}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border-2 ${
+                                  selectedVariantIndex === i
+                                    ? 'bg-yellow-500 text-black border-yellow-500'
+                                    : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-yellow-400 hover:text-white'
+                                }`}
+                              >
+                                {v.engine}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Infos huile */}
+                      {oilDisplay && (
+                        <>
+                          <div className="grid grid-cols-3 gap-3 mb-5">
+                            <div className="bg-gray-900/60 rounded-lg p-3 text-center">
+                              <p className="text-gray-500 text-xs mb-1">Viscosité</p>
+                              <p className="text-yellow-400 font-bold">{oilDisplay.oil}</p>
+                            </div>
+                            <div className="bg-gray-900/60 rounded-lg p-3 text-center">
+                              <p className="text-gray-500 text-xs mb-1">Norme</p>
+                              <p className="text-white text-xs font-semibold">{oilDisplay.spec}</p>
+                            </div>
+                            <div className="bg-gray-900/60 rounded-lg p-3 text-center">
+                              <p className="text-gray-500 text-xs mb-1">Capacité</p>
+                              <p className="text-green-400 font-bold">{oilDisplay.capacity}</p>
+                            </div>
+                          </div>
+                          {/* Formats indépendants */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                            {(['1L', '5L'] as const).map(fmt => {
+                              const qty = fmt === '1L' ? oilQty1L : oilQty5L;
+                              const setQty = fmt === '1L' ? setOilQty1L : setOilQty5L;
+                              const added = oilAddedToCart === fmt;
+                              return (
+                                <div key={fmt} className="bg-gray-900/80 border border-gray-700 rounded-xl p-4 flex flex-col gap-3">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-white font-bold text-lg">{fmt}</span>
+                                    <span className="text-yellow-400 font-bold">{OIL_PRICES[fmt].toFixed(2)} € / bouteille</span>
+                                  </div>
+                                  <div className="flex items-center gap-3">
+                                    <button onClick={() => setQty(q => Math.max(1, q - 1))} className="w-9 h-9 rounded-lg bg-gray-700 hover:bg-gray-600 text-white font-bold text-xl flex items-center justify-center">−</button>
+                                    <span className="text-white font-bold text-lg min-w-[2rem] text-center">{qty}</span>
+                                    <button onClick={() => setQty(q => Math.min(20, q + 1))} className="w-9 h-9 rounded-lg bg-gray-700 hover:bg-gray-600 text-white font-bold text-xl flex items-center justify-center">+</button>
+                                    <span className="text-gray-400 text-sm ml-auto">= {(OIL_PRICES[fmt] * qty).toFixed(2)} €</span>
+                                  </div>
+                                  <button
+                                    onClick={() => handleAddOilToCart({ ...oilSpec, oil: oilDisplay.oil, spec: oilDisplay.spec, capacity: oilDisplay.capacity, engine: oilDisplay.engine }, fmt)}
+                                    className={`w-full py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 ${
+                                      added ? 'bg-green-600 text-white' : 'bg-yellow-500 hover:bg-yellow-400 text-black'
+                                    }`}
+                                  >
+                                    {added ? '✓ Ajouté' : `Ajouter ${qty}× ${fmt} au panier`}
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
+
+                  <p className="text-gray-600 text-xs mt-4">Consultez votre manuel du propriétaire pour confirmation.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {filteredProducts.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-gray-400 text-xl mb-4">
@@ -267,7 +451,7 @@ function SearchResults() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-purple-900/20 to-black py-16 border-t border-purple-500/20">
+      <section className="relative z-10 bg-gradient-to-r from-purple-900/20 to-transparent py-16 border-t border-purple-500/20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Besoin d'un conseil ?

@@ -5,7 +5,6 @@ import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 
 export default function CartPage() {
   const router = useRouter();
@@ -13,89 +12,15 @@ export default function CartPage() {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
   const getTotalPrice = useCartStore((state) => state.getTotalPrice);
-  const clearCart = useCartStore((state) => state.clearCart);
   const user = useAuthStore((state) => state.user);
 
-  const [orderPlaced, setOrderPlaced] = useState(false);
-
-  const handleCheckout = () => {
+  const handleCheckoutRedirect = () => {
     if (!user) {
       router.push('/login');
       return;
     }
-
-    // Simuler la création d'une commande
-    const order = {
-      id: `order-${Date.now()}`,
-      user_id: user.id,
-      items: items.map((item) => ({
-        product_id: item.id,
-        product_name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      total: getTotalPrice(),
-      status: 'pending',
-      customer_name: user.name,
-      customer_email: user.email,
-      customer_phone: user.phone || '',
-      customer_address: user.address || '',
-      created_at: new Date().toISOString(),
-    };
-
-    // Sauvegarder la commande dans localStorage
-    const orders = JSON.parse(localStorage.getItem('cpworks_orders') || '[]');
-    orders.push(order);
-    localStorage.setItem('cpworks_orders', JSON.stringify(orders));
-
-    // Mettre à jour le stock des produits
-    const products = JSON.parse(localStorage.getItem('cpworks_products') || '[]');
-    items.forEach((cartItem) => {
-      const productIndex = products.findIndex((p: any) => p.id === cartItem.id);
-      if (productIndex !== -1) {
-        products[productIndex].stock -= cartItem.quantity;
-      }
-    });
-    localStorage.setItem('cpworks_products', JSON.stringify(products));
-
-    clearCart();
-    setOrderPlaced(true);
+    router.push('/checkout');
   };
-
-  if (orderPlaced) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black pt-32 px-6 pb-20">
-        <div className="container mx-auto max-w-2xl">
-          <div className="bg-gradient-to-br from-purple-900/30 to-gray-900/30 border border-purple-500/30 rounded-2xl p-12 text-center">
-            <div className="text-6xl mb-6">✅</div>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Commande confirmée!
-            </h2>
-            <p className="text-gray-300 mb-2">
-              Merci pour votre commande. Nous vous contacterons bientôt pour confirmer les détails.
-            </p>
-            <p className="text-purple-400 mb-8">
-              Un email de confirmation vous a été envoyé.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <Link
-                href="/"
-                className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
-              >
-                Retour à l'accueil
-              </Link>
-              <Link
-                href="/products"
-                className="px-6 py-3 bg-transparent border-2 border-purple-500 hover:bg-purple-500/10 text-purple-400 rounded-lg font-semibold transition-all duration-300"
-              >
-                Continuer les achats
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (items.length === 0) {
     return (
@@ -227,10 +152,10 @@ export default function CartPage() {
               )}
 
               <button
-                onClick={handleCheckout}
+                onClick={handleCheckoutRedirect}
                 className="w-full px-6 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/30 mb-4"
               >
-                {user ? 'Passer la commande' : 'Se connecter pour commander'}
+                {user ? '🔒 Procéder au paiement' : 'Se connecter pour commander'}
               </button>
 
               <Link

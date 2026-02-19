@@ -26,46 +26,46 @@ const japaneseBrands: VehicleBrand[] = [
   { id: 'brand-toyota', name: 'Toyota', modelPath: '/models/toyota/scene.gltf', startYear: 2010, order: 18 },
   { id: 'brand-honda', name: 'Honda', modelPath: '/models/honda/scene.gltf', startYear: 2010, order: 19 },
   { id: 'brand-nissan', name: 'Nissan', modelPath: '/models/nissan/scene.gltf', startYear: 2010, order: 20 },
-  { id: 'brand-mazda', name: 'Mazda', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 21 },
-  { id: 'brand-subaru', name: 'Subaru', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 22 },
-  { id: 'brand-mitsubishi', name: 'Mitsubishi', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 23 },
-  { id: 'brand-suzuki', name: 'Suzuki', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 24 },
-  { id: 'brand-lexus', name: 'Lexus', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 25 },
-  { id: 'brand-infiniti', name: 'Infiniti', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 26 },
-  { id: 'brand-acura', name: 'Acura', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 27 },
+  { id: 'brand-mazda', name: 'Mazda', modelPath: '/models/mazda/scene.gltf', startYear: 2010, order: 21 },
+  { id: 'brand-subaru', name: 'Subaru', modelPath: '/models/subaru/scene.gltf', startYear: 2010, order: 22 },
+  { id: 'brand-mitsubishi', name: 'Mitsubishi', modelPath: '/models/mitsubishi/scene.gltf', startYear: 2010, order: 23 },
+  { id: 'brand-suzuki', name: 'Suzuki', modelPath: '/models/suzuki/scene.gltf', startYear: 2010, order: 24 },
+  { id: 'brand-lexus', name: 'Lexus', modelPath: '/models/lexus/scene.gltf', startYear: 2010, order: 25 },
+  { id: 'brand-infiniti', name: 'Infiniti', modelPath: '/models/infiniti/scene.gltf', startYear: 2010, order: 26 },
+  { id: 'brand-acura', name: 'Acura', modelPath: '/models/acura/scene.gltf', startYear: 2010, order: 27 },
 ];
 
 // Marques coréennes
 const koreanBrands: VehicleBrand[] = [
-  { id: 'brand-hyundai', name: 'Hyundai', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 28 },
-  { id: 'brand-kia', name: 'Kia', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 29 },
-  { id: 'brand-genesis', name: 'Genesis', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 30 },
+  { id: 'brand-hyundai', name: 'Hyundai', modelPath: '/models/hyundai/scene.gltf', startYear: 2010, order: 28 },
+  { id: 'brand-kia', name: 'Kia', modelPath: '/models/kia/scene.gltf', startYear: 2010, order: 29 },
+  { id: 'brand-genesis', name: 'Genesis', modelPath: '/models/genesis/scene.gltf', startYear: 2010, order: 30 },
 ];
 
 // Marques américaines
 const americanBrands: VehicleBrand[] = [
-  { id: 'brand-ford', name: 'Ford', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 31 },
-  { id: 'brand-chevrolet', name: 'Chevrolet', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 32 },
-  { id: 'brand-dodge', name: 'Dodge', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 33 },
-  { id: 'brand-jeep', name: 'Jeep', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 34 },
-  { id: 'brand-cadillac', name: 'Cadillac', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 35 },
-  { id: 'brand-tesla', name: 'Tesla', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 36 },
-  { id: 'brand-gmc', name: 'GMC', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 37 },
-  { id: 'brand-ram', name: 'Ram', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 38 },
-  { id: 'brand-chrysler', name: 'Chrysler', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 39 },
-  { id: 'brand-lincoln', name: 'Lincoln', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 40 },
+  { id: 'brand-ford', name: 'Ford', modelPath: '/models/ford/scene.gltf', startYear: 2010, order: 31 },
+  { id: 'brand-chevrolet', name: 'Chevrolet', modelPath: '/models/chevrolet/scene.gltf', startYear: 2010, order: 32 },
+  { id: 'brand-dodge', name: 'Dodge', modelPath: '/models/dodge/scene.gltf', startYear: 2010, order: 33 },
+  { id: 'brand-jeep', name: 'Jeep', modelPath: '/models/jeep/scene.gltf', startYear: 2010, order: 34 },
+  { id: 'brand-cadillac', name: 'Cadillac', modelPath: '/models/cadillac/scene.gltf', startYear: 2010, order: 35 },
+  { id: 'brand-tesla', name: 'Tesla', modelPath: '/models/tesla/scene.gltf', startYear: 2010, order: 36 },
+  { id: 'brand-gmc', name: 'GMC', modelPath: '/models/gmc/scene.gltf', startYear: 2010, order: 37 },
+  { id: 'brand-ram', name: 'Ram', modelPath: '/models/ram/scene.gltf', startYear: 2010, order: 38 },
+  { id: 'brand-chrysler', name: 'Chrysler', modelPath: '/models/chrysler/scene.gltf', startYear: 2010, order: 39 },
+  { id: 'brand-lincoln', name: 'Lincoln', modelPath: '/models/lincoln/scene.gltf', startYear: 2010, order: 40 },
 ];
 
 // Marques premium/luxe
 const luxuryBrands: VehicleBrand[] = [
-  { id: 'brand-rollsroyce', name: 'Rolls-Royce', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 41 },
-  { id: 'brand-bentley', name: 'Bentley', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 42 },
-  { id: 'brand-maserati', name: 'Maserati', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 43 },
-  { id: 'brand-lamborghini', name: 'Lamborghini', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 44 },
-  { id: 'brand-ferrari', name: 'Ferrari', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 45 },
-  { id: 'brand-astonmartin', name: 'Aston Martin', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 46 },
-  { id: 'brand-mclaren', name: 'McLaren', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 47 },
-  { id: 'brand-bugatti', name: 'Bugatti', modelPath: '/models/placeholder.gltf', startYear: 2010, order: 48 },
+  { id: 'brand-rollsroyce', name: 'Rolls-Royce', modelPath: '/models/rolls-royce/scene.gltf', startYear: 2010, order: 41 },
+  { id: 'brand-bentley', name: 'Bentley', modelPath: '/models/bentley/scene.gltf', startYear: 2010, order: 42 },
+  { id: 'brand-maserati', name: 'Maserati', modelPath: '/models/maserati/scene.gltf', startYear: 2010, order: 43 },
+  { id: 'brand-lamborghini', name: 'Lamborghini', modelPath: '/models/lamborghini/scene.gltf', startYear: 2010, order: 44 },
+  { id: 'brand-ferrari', name: 'Ferrari', modelPath: '/models/ferrari/scene.gltf', startYear: 2010, order: 45 },
+  { id: 'brand-astonmartin', name: 'Aston Martin', modelPath: '/models/aston-martin/scene.gltf', startYear: 2010, order: 46 },
+  { id: 'brand-mclaren', name: 'McLaren', modelPath: '/models/mclaren/scene.gltf', startYear: 2010, order: 47 },
+  { id: 'brand-bugatti', name: 'Bugatti', modelPath: '/models/bugatti/scene.gltf', startYear: 2010, order: 48 },
 ];
 
 // Toutes les marques combinées

@@ -79,6 +79,34 @@ function Model3D({ url, onError: _onError, brandName }: Model3DProps) {
     const isToyota = brandName === 'Toyota';
     const isHonda = brandName === 'Honda';
     const isNissan = brandName === 'Nissan';
+    const isMazda = brandName === 'Mazda';
+    const isSubaru = brandName === 'Subaru';
+    const isMitsubishi = brandName === 'Mitsubishi';
+    const isSuzuki = brandName === 'Suzuki';
+    const isLexus = brandName === 'Lexus';
+    const isInfiniti = brandName === 'Infiniti';
+    const isAcura = brandName === 'Acura';
+    const isHyundai = brandName === 'Hyundai';
+    const isKia = brandName === 'Kia';
+    const isGenesis = brandName === 'Genesis';
+    const isFord = brandName === 'Ford';
+    const isChevrolet = brandName === 'Chevrolet';
+    const isDodge = brandName === 'Dodge';
+    const isJeep = brandName === 'Jeep';
+    const isCadillac = brandName === 'Cadillac';
+    const isTesla = brandName === 'Tesla';
+    const isGMC = brandName === 'GMC';
+    const isRam = brandName === 'Ram';
+    const isChrysler = brandName === 'Chrysler';
+    const isLincoln = brandName === 'Lincoln';
+    const isRollsRoyce = brandName === 'Rolls-Royce';
+    const isBentley = brandName === 'Bentley';
+    const isMaserati = brandName === 'Maserati';
+    const isLamborghini = brandName === 'Lamborghini';
+    const isFerrari = brandName === 'Ferrari';
+    const isAstonMartin = brandName === 'Aston Martin';
+    const isMcLaren = brandName === 'McLaren';
+    const isBugatti = brandName === 'Bugatti';
 
     // Center and scale the model - Performance optimisée + réflexions réduites
     clonedScene.traverse((child) => {
@@ -234,6 +262,342 @@ function Model3D({ url, onError: _onError, brandName }: Model3DProps) {
               material.roughness = material.roughness || 0.5;
             } else if (isNissan) {
               // Nissan: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isMazda) {
+              // Mazda: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isSubaru) {
+              // Subaru: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isMitsubishi) {
+              // Mitsubishi: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isSuzuki) {
+              // Suzuki: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isLexus) {
+              // Lexus: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isInfiniti) {
+              // Infiniti: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isAcura) {
+              // Acura: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isHyundai) {
+              // Hyundai: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isKia) {
+              // Kia: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isGenesis) {
+              // Genesis: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isFord) {
+              // Ford: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isChevrolet) {
+              // Chevrolet: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isDodge) {
+              // Dodge: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isJeep) {
+              // Jeep: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isCadillac) {
+              // Cadillac: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isTesla) {
+              // Tesla: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isGMC) {
+              // GMC: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isRam) {
+              // Ram: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isLincoln) {
+              // Lincoln: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isRollsRoyce) {
+              // Rolls-Royce: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isBentley) {
+              // Bentley: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isMaserati) {
+              // Maserati: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isLamborghini) {
+              // Lamborghini: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isFerrari) {
+              // Ferrari: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isAstonMartin) {
+              // Aston Martin: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isMcLaren) {
+              // McLaren: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isBugatti) {
+              // Bugatti: préserver les couleurs d'origine
+              if (material.map) {
+                material.map.anisotropy = 4;
+                material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+              if (material.normalMap) {
+                material.normalMap.anisotropy = 4;
+              }
+              material.envMapIntensity = 0.3;
+              material.metalness = material.metalness || 0.5;
+              material.roughness = material.roughness || 0.5;
+            } else if (isChrysler) {
+              // Chrysler: préserver les couleurs d'origine
               if (material.map) {
                 material.map.anisotropy = 4;
                 material.map.colorSpace = THREE.SRGBColorSpace;
@@ -437,13 +801,69 @@ function Model3D({ url, onError: _onError, brandName }: Model3DProps) {
       clonedScene.position.y += 0.8; // Honda - position initiale
     } else if (isNissan) {
       clonedScene.position.y += 0.8; // Nissan - position initiale
+    } else if (isMazda) {
+      clonedScene.position.y += 0.0; // Mazda - descendu
+    } else if (isSubaru) {
+      clonedScene.position.y += 0.0; // Subaru - descendu
+    } else if (isMitsubishi) {
+      clonedScene.position.y += 0.0; // Mitsubishi - descendu
+    } else if (isSuzuki) {
+      clonedScene.position.y += 0.8; // Suzuki
+    } else if (isLexus) {
+      clonedScene.position.y += 0.8; // Lexus
+    } else if (isInfiniti) {
+      clonedScene.position.y += 0.8; // Infiniti
+    } else if (isAcura) {
+      clonedScene.position.y += 0.8; // Acura
+    } else if (isHyundai) {
+      clonedScene.position.y += 0.8; // Hyundai
+    } else if (isKia) {
+      clonedScene.position.y += 0.0; // Kia
+    } else if (isGenesis) {
+      clonedScene.position.y += 0.8; // Genesis
+    } else if (isFord) {
+      clonedScene.position.y += 0.0; // Ford
+    } else if (isChevrolet) {
+      clonedScene.position.y += 0.8; // Chevrolet
+    } else if (isDodge) {
+      clonedScene.position.y += 0.8; // Dodge
+    } else if (isJeep) {
+      clonedScene.position.y += 0.8; // Jeep
+    } else if (isCadillac) {
+      clonedScene.position.y += 0.8; // Cadillac
+    } else if (isTesla) {
+      clonedScene.position.y += 0.8; // Tesla
+    } else if (isGMC) {
+      clonedScene.position.y += 0.8; // GMC
+    } else if (isRam) {
+      clonedScene.position.y += 0.8; // Ram
+    } else if (isChrysler) {
+      clonedScene.position.y += 4.5; // Chrysler
+    } else if (isLincoln) {
+      clonedScene.position.y += 0.8; // Lincoln
+    } else if (isRollsRoyce) {
+      clonedScene.position.y += 0.8; // Rolls-Royce
+    } else if (isBentley) {
+      clonedScene.position.y += 0.0; // Bentley
+    } else if (isMaserati) {
+      clonedScene.position.y += 0.8; // Maserati
+    } else if (isLamborghini) {
+      clonedScene.position.y += 0.8; // Lamborghini
+    } else if (isFerrari) {
+      clonedScene.position.y += 0.8; // Ferrari
+    } else if (isAstonMartin) {
+      clonedScene.position.y += 0.8; // Aston Martin
+    } else if (isMcLaren) {
+      clonedScene.position.y += 0.8; // McLaren
+    } else if (isBugatti) {
+      clonedScene.position.y += 0.8; // Bugatti
     }
 
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
 
     // Calcul de l'échelle - Modèles plus gros pour meilleure visibilité
-    let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 7.0 / maxDim : (isPorsche ? 6.0 / maxDim : (isPeugeot ? 6.0 / maxDim : (isRenault ? 6.0 / maxDim : (isCitroen ? 6.0 / maxDim : (isFiat ? 6.0 / maxDim : (isVolvo ? 6.0 / maxDim : (isOpel ? 6.0 / maxDim : (isSeat ? 6.0 / maxDim : (isSkoda ? 6.0 / maxDim : (isLandRover ? 6.0 / maxDim : (isJaguar ? 6.0 / maxDim : (isMini ? 6.0 / maxDim : (isAlfaRomeo ? 6.0 / maxDim : (isToyota ? 6.0 / maxDim : (isHonda ? 6.0 / maxDim : (isNissan ? 6.0 / maxDim : 3.0 / maxDim))))))))))))))))));
+    let scale = isAudi ? 5.5 / maxDim : (isVolkswagen ? 12.0 / maxDim : (isBMW || isMercedes ? 7.0 / maxDim : (isPorsche ? 6.0 / maxDim : (isPeugeot ? 6.0 / maxDim : (isRenault ? 6.0 / maxDim : (isCitroen ? 6.0 / maxDim : (isFiat ? 6.0 / maxDim : (isVolvo ? 6.0 / maxDim : (isOpel ? 6.0 / maxDim : (isSeat ? 6.0 / maxDim : (isSkoda ? 6.0 / maxDim : (isLandRover ? 6.0 / maxDim : (isJaguar ? 6.0 / maxDim : (isMini ? 6.0 / maxDim : (isAlfaRomeo ? 6.0 / maxDim : (isToyota ? 6.0 / maxDim : (isHonda ? 6.0 / maxDim : (isNissan ? 6.0 / maxDim : (isMazda ? 6.0 / maxDim : (isSubaru ? 6.0 / maxDim : (isMitsubishi ? 6.0 / maxDim : (isSuzuki ? 6.0 / maxDim : (isLexus ? 6.0 / maxDim : (isInfiniti ? 6.0 / maxDim : (isAcura ? 6.0 / maxDim : (isHyundai ? 6.0 / maxDim : (isKia ? 6.0 / maxDim : (isGenesis ? 5.0 / maxDim : (isFord ? 6.0 / maxDim : (isChevrolet ? 6.0 / maxDim : (isDodge ? 6.0 / maxDim : (isJeep ? 6.0 / maxDim : (isCadillac ? 6.0 / maxDim : (isTesla ? 6.0 / maxDim : (isGMC ? 6.0 / maxDim : (isRam ? 6.0 / maxDim : (isChrysler ? 6.0 / maxDim : (isLincoln ? 6.0 / maxDim : (isRollsRoyce ? 6.0 / maxDim : (isBentley ? 6.0 / maxDim : (isMaserati ? 6.0 / maxDim : (isLamborghini ? 6.0 / maxDim : (isFerrari ? 6.0 / maxDim : (isAstonMartin ? 6.0 / maxDim : (isMcLaren ? 6.0 / maxDim : (isBugatti ? 6.0 / maxDim : 3.0 / maxDim))))))))))))))))))))))))))))))))))))))))))))));
 
     console.log('📏 Model dimensions:', {
       url,
@@ -555,6 +975,62 @@ export default function VehicleModel3D({
       return [5, 3.5, 5]; // Honda - Caméra initiale
     } else if (brandName === 'Nissan') {
       return [5, 3.5, 5]; // Nissan - Caméra initiale
+    } else if (brandName === 'Mazda') {
+      return [5, 3.5, 5]; // Mazda - Caméra initiale
+    } else if (brandName === 'Subaru') {
+      return [5, 3.5, 5]; // Subaru - Caméra initiale
+    } else if (brandName === 'Mitsubishi') {
+      return [5, 3.5, 5]; // Mitsubishi - Caméra initiale
+    } else if (brandName === 'Suzuki') {
+      return [5, 3.5, 5]; // Suzuki - Caméra initiale
+    } else if (brandName === 'Lexus') {
+      return [5, 3.5, 5]; // Lexus - Caméra initiale
+    } else if (brandName === 'Infiniti') {
+      return [5, 3.5, 5]; // Infiniti - Caméra initiale
+    } else if (brandName === 'Acura') {
+      return [5, 3.5, 5]; // Acura - Caméra initiale
+    } else if (brandName === 'Hyundai') {
+      return [5, 3.5, 5]; // Hyundai - Caméra initiale
+    } else if (brandName === 'Kia') {
+      return [5, 3.5, 5]; // Kia - Caméra initiale
+    } else if (brandName === 'Genesis') {
+      return [5, 3.5, 5]; // Genesis - Caméra initiale
+    } else if (brandName === 'Ford') {
+      return [5, 3.5, 5]; // Ford - Caméra initiale
+    } else if (brandName === 'Chevrolet') {
+      return [5, 3.5, 5]; // Chevrolet - Caméra initiale
+    } else if (brandName === 'Dodge') {
+      return [5, 3.5, 5]; // Dodge - Caméra initiale
+    } else if (brandName === 'Jeep') {
+      return [5, 3.5, 5]; // Jeep - Caméra initiale
+    } else if (brandName === 'Cadillac') {
+      return [5, 3.5, 5]; // Cadillac - Caméra initiale
+    } else if (brandName === 'Tesla') {
+      return [5, 3.5, 5]; // Tesla - Caméra initiale
+    } else if (brandName === 'GMC') {
+      return [11, 7, 11]; // GMC - Caméra très reculée
+    } else if (brandName === 'Ram') {
+      return [5, 3.5, 5]; // Ram - Caméra initiale
+    } else if (brandName === 'Chrysler') {
+      return [5, 3.5, 5]; // Chrysler - Caméra initiale
+    } else if (brandName === 'Lincoln') {
+      return [5, 3.5, 5]; // Lincoln - Caméra initiale
+    } else if (brandName === 'Rolls-Royce') {
+      return [5, 3.5, 5]; // Rolls-Royce - Caméra initiale
+    } else if (brandName === 'Bentley') {
+      return [5, 3.5, 5]; // Bentley - Caméra initiale
+    } else if (brandName === 'Maserati') {
+      return [5, 3.5, 5]; // Maserati - Caméra initiale
+    } else if (brandName === 'Lamborghini') {
+      return [5, 3.5, 5]; // Lamborghini - Caméra initiale
+    } else if (brandName === 'Ferrari') {
+      return [5, 3.5, 5]; // Ferrari - Caméra initiale
+    } else if (brandName === 'Aston Martin') {
+      return [5, 3.5, 5]; // Aston Martin - Caméra initiale
+    } else if (brandName === 'McLaren') {
+      return [5, 3.5, 5]; // McLaren - Caméra initiale
+    } else if (brandName === 'Bugatti') {
+      return [5, 3.5, 5]; // Bugatti - Caméra initiale
     } else {
       return [4, 3, 4]; // Autres marques
     }

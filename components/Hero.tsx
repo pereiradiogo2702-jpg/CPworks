@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import AnimatedLogo from './AnimatedLogo';
 
 export default function Hero() {
@@ -28,12 +29,20 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
         {/* Animated Logo */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-12"
+        >
           <AnimatedLogo />
-        </div>
+        </motion.div>
 
         {/* Heading with Glitch Effect */}
-        <h1
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
           className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white glitch"
           data-text="CPWorks"
           style={{
@@ -41,18 +50,33 @@ export default function Hero() {
           }}
         >
           CPWorks
-        </h1>
+        </motion.h1>
 
-        <p className="text-xl md:text-2xl text-gray-300 mb-4">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="text-xl md:text-2xl text-gray-300 mb-4"
+        >
           Customisation Automobile
-        </p>
+        </motion.p>
 
-        <p className="text-lg text-purple-400 mb-12 max-w-2xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+          className="text-lg text-purple-400 mb-12 max-w-2xl mx-auto"
+        >
           Spécialistes en ciels étoilés, LED, lumière d'ambiance et modifications sur mesure
-        </p>
+        </motion.p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
           <a
             href="#services"
             className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/50"
@@ -65,7 +89,7 @@ export default function Hero() {
           >
             Contactez-nous
           </a>
-        </div>
+        </motion.div>
       </div>
 
       {/* Floating particles effect - only render on client */}

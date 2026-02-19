@@ -362,9 +362,9 @@ export default function ProductsPage() {
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               >
-                <source src="/hero-video.mp4" type="video/mp4" />
+                <source src="/products-bg.mp4" type="video/mp4" />
               </video>
               {/* Overlay sombre - Réduit à 30% */}
               <div className="absolute inset-0 bg-black/30"></div>
@@ -593,15 +593,12 @@ export default function ProductsPage() {
                 </p>
                 <div className="flex justify-center gap-8">
                   <div className="flex items-center gap-2 text-purple-400">
-                    <span className="text-2xl">🚗</span>
                     <span>Toutes marques</span>
                   </div>
                   <div className="flex items-center gap-2 text-purple-400">
-                    <span className="text-2xl">⚡</span>
                     <span>Installation pro</span>
                   </div>
                   <div className="flex items-center gap-2 text-purple-400">
-                    <span className="text-2xl">✨</span>
                     <span>Qualité premium</span>
                   </div>
                 </div>

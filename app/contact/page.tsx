@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 interface Mechanic {
   name: string;
@@ -18,20 +19,20 @@ export default function ContactPage() {
 
   const mechanics: Mechanic[] = [
     {
-      name: 'Jean-Paul Martinez',
-      role: 'Expert en Customisation & Spécialiste LED',
-      experience: '15 ans d\'expérience',
-      specialties: ['Customisation LED', 'Ciels étoilés', 'Électronique auto'],
-      bio: 'Passionné par l\'innovation automobile, Jean-Paul s\'est spécialisé dans les installations LED et ciels étoilés. Après 10 ans dans l\'automobile, il a perfectionné ses compétences en customisation haut de gamme. Expert en électronique automobile, il réalise des installations sur mesure qui transforment chaque véhicule en œuvre d\'art lumineuse.',
-      photo: '/mechanic1.jpg',
+      name: 'Bryan Michel Pereira Castro',
+      role: 'Technicien en Mécatronique — Spécialiste Lumière d\'Ambiance & Ciel Étoilé',
+      experience: 'BMW Bilia',
+      specialties: ['Lumière d\'ambiance', 'Ciel étoilé', 'Électronique automobile', 'Câblage', 'Programmation modules', 'Fibres optiques'],
+      bio: 'Diplômé en mécatronique, Bryan Michel Pereira Castro a débuté sa carrière chez BMW Bilia, où il intervient avec prudence et précision sur des véhicules haut de gamme. Ses solides compétences en électronique lui confèrent un véritable avantage dans sa spécialité : l\'installation de lumières d\'ambiance et de ciels étoilés. De la conception du câblage à la programmation des modules de contrôle, en passant par le positionnement des fibres optiques, il maîtrise l\'ensemble du processus pour transformer chaque habitacle en une expérience visuelle unique.',
+      photo: '/bryan.jpg',
     },
     {
-      name: 'Alexandre Dubois',
-      role: 'Expert Automobile & Spécialiste Entretien',
-      experience: '12 ans d\'expérience',
-      specialties: ['Diagnostic électronique', 'Entretien', 'Réparations complexes'],
-      bio: 'Fort de 12 années d\'expérience dans le domaine automobile, Alexandre maîtrise tous les aspects de l\'automobile moderne. Diplômé en automobile et électronique, il excelle dans le diagnostic et la résolution de problèmes complexes. Sa rigueur et son professionnalisme garantissent des interventions de qualité sur tous types de véhicules.',
-      photo: '/mechanic2.jpg',
+      name: 'Tiago Silverio Pereira Castro',
+      role: 'Spécialiste Automobile · Ex Alfa Romeo',
+      experience: 'Expert démontage & nettoyage premium',
+      specialties: ['Démontage complet', 'Nettoyage premium', 'Toits & tableaux de bord', 'Intérieurs complets'],
+      bio: 'Passionné de mécanique depuis toujours, Tiago a forgé son expertise chez Alfa Romeo. Il est capable de démonter n\'importe quel toit, tableau de bord ou intérieur complet avec une précision chirurgicale — ce qui lui permet de réaliser un nettoyage en profondeur exceptionnel, inaccessible par les méthodes classiques.',
+      photo: '/tiago.jpg',
     },
   ];
 
@@ -40,12 +41,22 @@ export default function ContactPage() {
       {/* Header */}
       <section className="bg-gradient-to-b from-purple-900/20 to-black py-20">
         <div className="container mx-auto px-6">
-          <h1 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+          <motion.h1
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent"
+          >
             Notre Équipe
-          </h1>
-          <p className="text-xl text-gray-400 text-center max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-xl text-gray-400 text-center max-w-2xl mx-auto"
+          >
             Rencontrez nos experts passionnés qui donnent vie à vos projets de customisation
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -54,8 +65,12 @@ export default function ContactPage() {
         <div className="container mx-auto px-6">
           <div className="space-y-16">
             {mechanics.map((mechanic, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
                 className={`flex flex-col ${
                   index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
                 } gap-8 items-center bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300`}
@@ -132,7 +147,7 @@ export default function ContactPage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -142,15 +157,33 @@ export default function ContactPage() {
       <section className="py-16 bg-gradient-to-b from-black to-gray-900 border-t border-purple-500/20">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent"
+            >
               Contactez-nous
-            </h2>
-            <p className="text-gray-400 text-center mb-12">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-gray-400 text-center mb-12"
+            >
               Une question ? Un projet de customisation ? N'hésitez pas à nous contacter
-            </p>
+            </motion.p>
 
             {/* Contact Form */}
-            <form className="space-y-6 bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8">
+            <motion.form
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-6 bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8"
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-white font-semibold mb-2">
@@ -215,36 +248,54 @@ export default function ContactPage() {
               >
                 Envoyer le message
               </button>
-            </form>
+            </motion.form>
 
             {/* Contact Info */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-              <div className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300"
+              >
                 <div className="text-4xl mb-3">📍</div>
                 <h3 className="text-white font-semibold mb-2">Adresse</h3>
                 <p className="text-gray-400 text-sm">
                   123 Rue de l'Automobile<br />
                   75000 Paris, France
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300"
+              >
                 <div className="text-4xl mb-3">📞</div>
                 <h3 className="text-white font-semibold mb-2">Téléphone</h3>
                 <p className="text-gray-400 text-sm">
                   +33 1 23 45 67 89<br />
                   Lun-Ven: 9h-18h
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300"
+              >
                 <div className="text-4xl mb-3">✉️</div>
                 <h3 className="text-white font-semibold mb-2">Email</h3>
                 <p className="text-gray-400 text-sm">
                   contact@cpworks.fr<br />
                   Réponse sous 24h
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
