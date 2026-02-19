@@ -13,7 +13,7 @@ export default function Navigation() {
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const getTotalItems = useCartStore((state) => state.getTotalItems);
+  const items = useCartStore((state) => state.items);
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
 
@@ -33,7 +33,7 @@ export default function Navigation() {
     router.push('/');
   };
 
-  const cartItemCount = mounted ? getTotalItems() : 0;
+  const cartItemCount = mounted ? items.reduce((total, item) => total + item.quantity, 0) : 0;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-purple-500/20">
